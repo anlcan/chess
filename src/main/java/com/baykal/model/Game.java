@@ -1,5 +1,8 @@
 package com.baykal.model;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:45
  */
@@ -9,7 +12,7 @@ public class Game {
     private Player two;
 
     private Board board;
-    private int moveCount;
+    private int moveCount = 0;
 
     public Game(Player one, Player two) {
         if (one.getType() == Type.BLACK) {
@@ -23,33 +26,42 @@ public class Game {
         this.board = new Board();
     }
 
+    boolean isCheck(Player player) {
+        return board.getPieces().stream()
+                .filter(p -> p.getType().equals(player.getType()))
+                .map(piece -> piece.moves(board))
+                .flatMap(Collection::stream)
+                .filter(Move::isCheck)
+                .findFirst()
+                .isPresent();
+
+
+
+    }
+
     public Player start(){
-        Player next = one.getType() == Type.WHITE? one : two;
-        while(true || moveCount == 5) {
-            Move nextMove = next.getMove(board);
-
-            board.apply(nextMove);
-//            if (board.isCheck()){
-//
-//                if (board.isMate()) {
-//                    return next;
-//                }
-//            }  else if (board.isDraw()){
-//                return null;
-//            }
-            moveCount++;
-            next = next == one? two : one;
-
-            System.out.print("\033[H\033[2J");
-            System.out.println("\f");
+        Player nextTurn = one.getType() == Type.WHITE? one : two;
+        while(moveCount < 46) {
             System.out.println(board.toString());
+            Move nextMove = nextTurn.getMove(board);
+            board.apply(nextMove);
+            if (isCheck(nextTurn)){
+                break;
+            }
+
+            moveCount++;
+            nextTurn = nextTurn == one? two : one;
+
+
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        return next;
+
+        System.out.printf(board.toPgnString());
+        return nextTurn;
     }
 
     public Board getBoard() {

@@ -6,10 +6,12 @@ package com.baykal.model;
 public class Move {
     private final Position current;
     private final Position next;
+    private boolean isCheck = false;
 
-    public Move(Position current, Position next) {
+    public Move(Position current, Position next, boolean check) {
         this.next = next;
         this.current = current;
+        this.isCheck = check;
     }
 
     public Position getCurrent() {
@@ -20,6 +22,11 @@ public class Move {
         return next;
     }
 
+    public boolean isCheck() {
+        return isCheck;
+    }
 
-
+    public void setCheck(boolean check) {
+        isCheck = check;
+    }
 }

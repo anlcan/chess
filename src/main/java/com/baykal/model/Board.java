@@ -4,8 +4,10 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:52
@@ -34,27 +36,15 @@ public class Board {
 
         @Override
         public String toString() {
-            String sep = isKill? " ": "x";
-            return kind.toString().charAt(0)
-                    + from.toString()
+            String sep = isKill? "x": "";
+            return  kind.getSign()
                     + sep
+                    + from.x
                     + to.toString()
                     + " ";
         }
     }
 
-    /*
-                 __    __    __    __
-          8 /__////__////__////__////
-         7 ////__////__////__////__/
-        6 /__////__////__////__////
-       5 ////__////__////__////__/
-      4 /__////__////__////__////
-     3 ////__////__////__////__/
-    2 /__////__////__////__////
-   1 ////__////__////__////__/
-      a  b  c  d  e  f  g  h
-     */
     public Board() {
         this.pieces = new ArrayList<Piece>();
 
@@ -91,34 +81,42 @@ public class Board {
         pieces.add(new Piece(Kind.KING, Type.BLACK, new Position("e", 8)));
     }
 
+
     public void apply(Move nextMove) {
         Optional<Piece> piece = findPiece(nextMove.getCurrent());
         if ( piece.isPresent()) {
             Piece p = piece.get();
-            Optional<Piece> attacked = findPiece(nextMove.getNext());
-            if (attacked.isPresent()){
-                assert attacked.get().getType() != p.getType();
-                pieces.remove(attacked);
+            Optional<Piece> captured = findPiece(nextMove.getNext());
+            if (captured.isPresent()){
+                assert captured.get().getType() != p.getType();
+                pieces.remove(captured.get());
             }
 
             p.setPosition(nextMove.getNext());
             this.moveTexts.add(
                     new MoveText(p.getKind(), nextMove.getCurrent(), nextMove.getNext(),
-                            attacked.isPresent()));
+                            captured.isPresent()));
+
         }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 1; i <9 ; i++) {
+
+        for (int i = 8; i <0 ; i++) {
             for (String s : Y) {
                 Optional<Piece> piece =  findPiece(new Position(s, i));
                 if (piece.isPresent()){
-                    sb.append(piece.get().getKind().toString().charAt(0));
-                    sb.append(piece.get().getType().toString().charAt(0));
+                    sb.append((char)27)
+                            .append(piece.get().getType()==Type.BLACK?"[31m":"[33m")
+                            .append(piece.get().getKind().toString().charAt(0))
+                    .append((char)27)
+                            .append("[0m");
+
+
                 } else {
-                    sb.append("  ");
+                    sb.append(" ");
                 }
             }
             sb.append("\n");
@@ -126,13 +124,28 @@ public class Board {
         return sb.toString();
     }
 
+    // https://lichess.org/import
+    public String toPgnString(){
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0, k=1; i <moveTexts.size(); i++) {
+            if (i%2==0) {
+                sb.append("\n").append(k++).append(".");
+            }
+
+            sb.append(moveTexts.get(i)) ;
+        }
+
+        return sb.toString();
+    }
+
+
+
     public Optional<Piece> findPiece(Position position){
           return pieces.stream().filter(p -> p.getCurrent().equals(position)).findFirst();
     }
 
-    public boolean isCheck() {
-        return false;
-    }
+
 
     public boolean isMate() {
         return false;

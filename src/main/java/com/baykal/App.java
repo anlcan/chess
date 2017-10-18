@@ -14,9 +14,9 @@ public class App
     public static void main( String[] args )
     {
         Game g = new Game(
-                new Player("white" , Type.WHITE),
+                new Player("white", Type.WHITE),
                 new Player("black", Type.BLACK));
-        System.out.println("\f");
+        System.out.println((char)27 + "[31mThis text would show up red" + (char)27 + "[0m other text");
         g.start();
 
 

@@ -12,11 +12,12 @@ public class Position {
     final String x;
     final char _x;
     final int y;
+    String tag;
 
     public Position(String x, int y) {
         this.x = x;
         this.y = y;
-        _x = x.charAt(0);
+        this._x = x.charAt(0);
     }
 
     public String x() {
@@ -27,17 +28,22 @@ public class Position {
         return y;
     }
 
+    public Position setTag(String tag) {
+        this.tag = tag;
+        return this;
+    }
+
     public Optional<Position> advance(int y) {
         if ( this.y + y > 8 || this.y + y < 1)
             return Optional.empty();
         else
-            return Optional.of(new Position( this.x(), this.y() + y));
+            return Optional.of(new Position( this.x(), this.y() + y).setTag(tag));
     }
 
-    public Optional<Position> lateral( int y) {
-        String s =  String.valueOf((char) (_x + y));
+    public Optional<Position> lateral(int x) {
+        String s =  String.valueOf((char) (_x + x));
         if (Board.Y.contains(s))
-            return Optional.of(new Position(s, this.y()));
+            return Optional.of(new Position(s, this.y()).setTag(tag));
         else
             return Optional.empty();
     }
@@ -80,27 +86,17 @@ public class Position {
         List<Position> pos = new ArrayList<>();
 
         if (Objects.equals(target.x(), this.x)) {
-            Position p = this;
             for(int i = Math.min(target.y(), y) + 1;
                 i <Math.max(target.y(), y);
                 i++) {
-                Optional<Position> advance = p.advance(1);
-                if (advance.isPresent()){
-                    pos.add(advance.get());
-                    p = advance.get();
-                }
+                    pos.add(new Position(this.x, i));
             }
         } else if (target.y() == this.y) {
-            Position p = this;
-
             for(int i = Math.min(target.x().charAt(0), _x) + 1;
                 i <Math.max(target.x().charAt(0), _x);
                 i++) {
-                Optional<Position> advance = p.lateral(1);
-                if (advance.isPresent()){
-                    pos.add(advance.get());
-                    p = advance.get();
-                }
+                pos.add(new Position(String.valueOf((char)i), this.y));
+
             }
         } else if (Math.abs(target.y() - y) ==
                 Math.abs(target.x().charAt(0) - _x)){
