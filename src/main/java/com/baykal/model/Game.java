@@ -9,6 +9,7 @@ public class Game {
     private Player two;
 
     private Board board;
+    private int moveCount;
 
     public Game(Player one, Player two) {
         if (one.getType() == Type.BLACK) {
@@ -24,20 +25,31 @@ public class Game {
 
     public Player start(){
         Player next = one.getType() == Type.WHITE? one : two;
-        while(true) {
-            Move nextMove = one.getMove(board);
+        while(true || moveCount == 5) {
+            Move nextMove = next.getMove(board);
+
             board.apply(nextMove);
-            if (board.isCheck()){
-
-                if (board.isMate()) {
-                    return next;
-                }
-            }  else if (board.isDraw()){
-                return null;
-            }
-
+//            if (board.isCheck()){
+//
+//                if (board.isMate()) {
+//                    return next;
+//                }
+//            }  else if (board.isDraw()){
+//                return null;
+//            }
+            moveCount++;
             next = next == one? two : one;
+
+            System.out.print("\033[H\033[2J");
+            System.out.println("\f");
+            System.out.println(board.toString());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        return next;
     }
 
     public Board getBoard() {

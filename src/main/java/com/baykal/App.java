@@ -16,8 +16,9 @@ public class App
         Game g = new Game(
                 new Player("white" , Type.WHITE),
                 new Player("black", Type.BLACK));
+        System.out.println("\f");
         g.start();
-        g.getBoard().toString();
+
 
     }
 }

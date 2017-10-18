@@ -1,5 +1,7 @@
 package com.baykal.model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,11 +12,36 @@ import java.util.Optional;
  */
 public class Board {
 
-    private final List<String> Y  = Arrays.asList("a", "b", "c" , "d" , "e" , "f" , "g" , "h");
-    private final List<Piece> pieces;
-    private final List<Square> squares;
-    private boolean check;
+    public static final List<String> Y  = Arrays.asList("a", "b", "c" , "d" , "e" , "f" , "g" , "h");
 
+    private final List<Piece> pieces;
+    private boolean check = false;
+    private final List<MoveText> moveTexts = new ArrayList<>();
+
+    //
+    private final class MoveText {
+        private final Kind kind;
+        private final Position from;
+        private final Position to;
+        private final Boolean isKill;
+
+        public MoveText(Kind kind, Position from, Position to, boolean isKill) {
+            this.kind = kind;
+            this.from = from;
+            this.to = to;
+            this.isKill = isKill;
+        }
+
+        @Override
+        public String toString() {
+            String sep = isKill? " ": "x";
+            return kind.toString().charAt(0)
+                    + from.toString()
+                    + sep
+                    + to.toString()
+                    + " ";
+        }
+    }
 
     /*
                  __    __    __    __
@@ -30,15 +57,7 @@ public class Board {
      */
     public Board() {
         this.pieces = new ArrayList<Piece>();
-        this.squares = new ArrayList<Square>();
 
-        Type t = Type.BLACK;
-        for (int i = 1; i <9 ; i++) {
-            for (String s : Y) {
-                squares.add(new Square(t, new Position(s, i)));
-                t = t==Type.BLACK? Type.WHITE : Type.BLACK;
-            }
-        }
         //pawns
         for (String s : Y) {
            pieces.add(new Piece(Kind.PAWN, Type.WHITE, new Position(s, 2)));
@@ -73,9 +92,21 @@ public class Board {
     }
 
     public void apply(Move nextMove) {
+        Optional<Piece> piece = findPiece(nextMove.getCurrent());
+        if ( piece.isPresent()) {
+            Piece p = piece.get();
+            Optional<Piece> attacked = findPiece(nextMove.getNext());
+            if (attacked.isPresent()){
+                assert attacked.get().getType() != p.getType();
+                pieces.remove(attacked);
+            }
 
+            p.setPosition(nextMove.getNext());
+            this.moveTexts.add(
+                    new MoveText(p.getKind(), nextMove.getCurrent(), nextMove.getNext(),
+                            attacked.isPresent()));
+        }
     }
-
 
     @Override
     public String toString() {
@@ -85,8 +116,9 @@ public class Board {
                 Optional<Piece> piece =  findPiece(new Position(s, i));
                 if (piece.isPresent()){
                     sb.append(piece.get().getKind().toString().charAt(0));
+                    sb.append(piece.get().getType().toString().charAt(0));
                 } else {
-                    sb.append(" ");
+                    sb.append("  ");
                 }
             }
             sb.append("\n");
@@ -94,7 +126,7 @@ public class Board {
         return sb.toString();
     }
 
-    private Optional<Piece> findPiece(Position position){
+    public Optional<Piece> findPiece(Position position){
           return pieces.stream().filter(p -> p.getCurrent().equals(position)).findFirst();
     }
 
@@ -110,13 +142,9 @@ public class Board {
         return false;
     }
 
-    public final class Square {
-        private final Type type;
-        private final Position position;
-
-        public Square(Type type, Position position) {
-            this.type = type;
-            this.position = position;
-        }
+    public List<Piece> getPieces() {
+        return pieces;
     }
+
+
 }
