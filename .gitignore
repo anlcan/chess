@@ -1,0 +1,5 @@
+target
+.idea/
+chess.iml
+src/main/resources/pgn.html
+target/
