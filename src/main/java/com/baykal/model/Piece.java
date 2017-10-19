@@ -3,8 +3,7 @@ package com.baykal.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import javafx.geometry.Pos;
+import java.util.function.Function;
 
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:55
@@ -39,88 +38,13 @@ public class Piece {
         return type;
     }
 
-    private List<Position> positions(Board board){
-
-        List<Position> positions = new ArrayList<>();
-
-
-
-        switch (kind){
-            case KING:
-                current.advance(1).ifPresent(positions::add);
-                current.advance(-1).ifPresent(positions::add);
-                current.lateral(1).ifPresent(positions::add);
-                current.lateral(-1).ifPresent(positions::add);
-
-                break;
-            case QUEEN:
-                  positions.addAll(current.allLateral());
-                  positions.addAll(current.allHorizontal());
-                  break;
-            case ROOK:
-                  positions.addAll(current.allLateral());
-                  break;
-            case BISHOP:
-                break;
-            case KNIGHT:
-
-                  current.advance(1)
-                          .ifPresent(position -> position.lateral(2)
-                                  .ifPresent(positions::add));
-
-                  current.advance(1)
-                          .ifPresent(position -> position.lateral(-2)
-                                  .ifPresent(positions::add));
-
-                  current.advance(2)
-                          .ifPresent(position -> position.lateral(1)
-                                  .ifPresent(positions::add));
-
-                  current.advance(2)
-                          .ifPresent(position -> position.lateral(-1)
-                                  .ifPresent(positions::add));
-                  //--
-                  current.advance(-1)
-                          .ifPresent(position -> position.lateral(2)
-                                  .ifPresent(positions::add));
-
-                  current.advance(-1)
-                          .ifPresent(position -> position.lateral(-2)
-                                  .ifPresent(positions::add));
-
-                  current.advance(-2)
-                          .ifPresent(position -> position.lateral(1)
-                                  .ifPresent(positions::add));
-
-                  current.advance(-2)
-                          .ifPresent(position -> position.lateral(-1)
-                                  .ifPresent(positions::add));
-
-                break;
-            case PAWN:
-//                   no going back
-                int mul = type==Type.BLACK? -1 : 1;
-                current.advance(1 * mul).ifPresent(positions::add);
-                if ( type==Type.BLACK && current.y == 7) {
-                    current.advance(-2).ifPresent(positions::add);
-                } else if (type==Type.WHITE && current.y == 2) {
-                    current.advance(2).ifPresent(positions::add);
-                }
-
-                break;
-            default:
-                break;
-
-        }
-
-        return positions;
-    }
 
     public List<Move> moves(Board board) {
         ArrayList<Move> moves = new ArrayList<>();
 
+        List<Position> positions = kind==Kind.PAWN? pawnPositions(): kind.positions.apply(current);
 
-        for (Position next : positions(board)) {
+        for (Position next :positions) {
             evaluate(next, board).ifPresent(moves::add);
         }
 
@@ -163,4 +87,20 @@ public class Piece {
                  current.toString() ;
 
     }
+
+
+
+        public List<Position> pawnPositions() {
+            List<Position> positions = new ArrayList<>();
+
+//            //                   no going back
+            int mul = type==Type.BLACK? -1 : 1;
+            current.advance(1 * mul).ifPresent(positions::add);
+            if ( type==Type.BLACK && current.y == 7) {
+                current.advance(-2).ifPresent(positions::add);
+            } else if (type==Type.WHITE && current.y == 2) {
+                current.advance(2).ifPresent(positions::add);
+            }
+            return positions;
+        }
 }

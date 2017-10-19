@@ -29,7 +29,7 @@ public class App
              bufferedWriter.write(g.getBoard().toPgnString());
             bufferedWriter.close();
             // ptyhon -m SimpleHTTPServer
-            Desktop.getDesktop().browse(new URI("http://localhost:8000/pgn11viewer.html"));
+            Desktop.getDesktop().browse(new URI("http://localhost:8000/pgnviewer.html"));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {

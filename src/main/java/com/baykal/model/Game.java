@@ -1,7 +1,6 @@
 package com.baykal.model;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:45
@@ -42,6 +41,7 @@ public class Game {
             Move nextMove = nextTurn.getMove(board);
             board.apply(nextMove);
             if (isCheck(nextTurn)){
+                // todo
                 break;
             }
             moveCount++;

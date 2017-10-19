@@ -2,8 +2,10 @@ package com.baykal.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:52
@@ -39,6 +41,10 @@ public class Board {
                     + to.toString()
                     + " ";
         }
+    }
+
+    public Board(List<Piece> pieces) {
+        this.pieces = pieces;
     }
 
     public Board() {
@@ -94,6 +100,14 @@ public class Board {
                             captured.isPresent()));
 
         }
+    }
+
+    public List<Move> possibleMoves(Player player){
+        return getPieces().parallelStream()
+                .filter(p -> p.getType().equals(player.getType()))
+                .map(p -> p.moves(this))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     @Override
