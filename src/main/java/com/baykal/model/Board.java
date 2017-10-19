@@ -1,13 +1,9 @@
 package com.baykal.model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:52
@@ -104,7 +100,7 @@ public class Board {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 8; i <0 ; i++) {
+        for (int i = 8; i > 0; i--) {
             for (String s : Y) {
                 Optional<Piece> piece =  findPiece(new Position(s, i));
                 if (piece.isPresent()){

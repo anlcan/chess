@@ -1,0 +1,290 @@
+
+<!-- saved from url=(0039)http://www.lutanho.net/pgn/pgnhelp.html -->
+<html class="cye-disabled cye-nm"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="description" content="LT-PGN-VIEWER 3.4 is a free JavaScript PGN Viewer ">
+<meta name="author" content="Lutz Tautenhahn">
+<meta name="keywords" content="Game, Chess, Schach, PGN, JavaScript">
+
+<title>LT-PGN-VIEWER HELP</title>
+<style type="text/css">
+body { background-color:#FFFFFF;color:#000000;font-size:10pt;font-family:Verdana; }
+</style>
+<script language="JavaScript">
+function OpenLTPgnViewerDemo()
+{ var dd=parent.frames[0].isDragDrop;
+  if (dd) dd="&SetDragDrop=1";
+  else dd="";
+  window.open("ltpgnviewer.html?ltpgnviewerdemo.html"+dd,"LTPgnViewerDemoWindow","width=640,height=390,menubar=no,locationbar=no,resizable=yes,status=no,scrollbars=no");
+}
+function OpenLTPgnBoard(urlstr, width, height)
+{ var dd=parent.frames[0].isDragDrop;
+  if (dd) dd="&SetDragDrop=1";
+  else dd="";
+  window.open("ltpgnboard.html"+urlstr+dd,"","width="+width+",height="+height+",menubar=no,locationbar=no,resizable=yes,status=no,scrollbars=no");
+}
+function OpenWindow(urlstr,pp)
+{ var dd=parent.frames[0].isDragDrop;
+  if (dd) dd="&SetDragDrop=1";
+  else dd="";
+  if (pp) window.open(urlstr+dd,"",pp);
+  else window.open(urlstr+dd);
+}
+function OpenLTPgnViewer(urlstr, width, height)
+{ var dd=parent.frames[0].isDragDrop;
+  if (dd) dd="&SetDragDrop=1";
+  else dd="";
+  window.open(urlstr+dd,"LTPgnViewerWindow","width="+width+",height="+height+",menubar=no,locationbar=no,resizable=yes,status=no,scrollbars=no");
+}
+function ShowGame(nn,ff,bb)
+{ var dd=parent.frames[0].isDragDrop;
+  if (dd) dd="&SetDragDrop=1";
+  else dd="";
+  if (bb) dd+="&SetBorder="+bb+"&RotateBoard=1";
+  var gg;
+  if (bb)
+  { gg=new Array(
+    "1.e4 c5 2.Nf3 d6 3.Bb5+ Bd7 4.Bxd7+ Qxd7 5.c4 Nc6 6.O-O g6 7.Nc3 Bg7 8.d3 Nf6 9.Nd5 Nxd5 10.cxd5 Nd4 11.Nxd4 cxd4 12.Bd2 O-O 13.Rc1 f5 14.Qb3 b6 15.Rc2 Rac8 16.Rfc1 Rxc2 17.Rxc2 f4 18.f3 g5 19.Rc6 g4 20.fxg4 Qxg4 21.Be1 f3 22.Qc2 Be5 23.Rc7 Kf7<Af8g8G> 24.Rxa7 Rg8 25.g3 h5 26.Qc7<Ba7G><Bc7G><Ce7R><Ac7e7G> Qg5 27.Bd2 Qf6 28.Kf2 h4 29.Kf1 Bxg3 30.Qd7 Bxh2 31.Qe6+ Qxe6 32.dxe6+ Kxe6 33.Be1 h3 34.Bh4<Ce7R><Bf5R><Bd5R><Ah4e7ffff80><Aa7e7G><Ae4f5ffff80><Ae4d5ffff80> Rg7 35.Bf2 Bf4 36.Bg1 Be3 37.Bh2 f2 38.Rxe7+ Kxe7 39.Ke2 Rg1 40.Bxg1 fxg1=Q 41.b4 Qf2+ 42.Kd1 Qd2++ 0-1",
+    "1.e4 e5 2.Bc4 Bc5 3.Nf3 Nc6 4.c3 d6 5.d4 exd4 6.cxd4 Bb4+ 7.Nc3 Bg4 8.Qb3 Qe7 9.Ng5 Nh6 10.O-O Bxc3 11.Qxb7 O-O 12.bxc3 Na5 13.Qb5 Nxc4 14.Qxc4 Be6 15.Nxe6 fxe6 16.Bxh6 gxh6 17.Rab1 Kh8 18.Rb7 Rf7 19.Qc6 h5 20.Rb5 Rg8 21.Rxh5 Qf6 22.f4 h6<Ah5g5R><Ah6g5G> 23.Ra5 Qh4 24.Rxa7 Rxg2+ 25.Kxg2 Qg4+ 26.Kh1 Rg7 0-1",
+    "1.e4 e5 2.Nf3 Nc6 3.Bb5 a6 4.Ba4 Nf6 5.O-O b5 6.Bb3 d6 7.c3 Be6 8.Bxe6 fxe6 9.d3 Be7 10.Nbd2 O-O 11.Qe2 Nd7 12.b3 d5 13.d4 Bd6 14.h3 Qe7 15.a4 b4 16.c4 dxc4 17.dxe5 Ncxe5 18.bxc4 c5 19.Bb2 a5 20.Rab1 Nxf3+ 21.Nxf3 e5 22.Rfd1 Rfe8 23.Qd3 Ra6 24.Qd5+ Qe6 25.Rd3 Qxd5 26.cxd5 c4 27.Re3 c3 28.Bxc3 bxc3 29.Rxc3 Bb4 30.Rc2 h6 31.Rc7 Nc5 32.Rxb4 axb4 33.Rxc5 Rxa4 34.Rb5 b3<Aa4e4G> 35.Nd2 Rd4 36.Nxb3 Rxe4 37.f3? (37.Kf1) 37. ... Re1+ 38.Kf2 Rb1<Cb1B><Cb3R><Cb5B><Ab3d4G><Ad4b5G><Ae5d4R> 39.Ke2 e4 40.fxe4 Rxe4+ 41.Kd3 Re5<Ad3d4G><Ae5e2B> 42.Kc2 Rg1 43.g4 Rg3 44.Nd4 Rxh3 45.Ne6 Re2+ 46.Kd1 Ra2<Ah3h1G> 47.Rb8+ Kf7 48.Ng5+ hxg5 49.Rb7+ Kg6 50.Rb6+ Kh7 51.Re6 Rh1+ 52.Re1 Ra1+ 0-1",
+    "1.e4 e5 2.Bc4 Nf6 3.d4 exd4 4.e5 d5 5.Bb3 Ne4 6.c3 (6.Qxd4 Bc5) 6. ... dxc3 7.Qxd5 Qxd5 8.Bxd5 Bb4 9.Ke2 cxb2 10.Bxb2 Nc5 11.Nf3 c6 12.a3 cxd5 13.axb4 Ne6 14.Nc3 Nf4+<Af4g2R><Af4e2R> 15.Kf1 Be6 16.Nb5 Na6 17.Rxa6 bxa6 18.Nc7+ Kd7 19.Nxa8 Rxa8 20.Ba3 Rc8<Cc1R><Ac8c1B><Aa3c1G><Af4e2ff00ff> 21.Ng5 Rc3 22.Bb2 Rb3 23.g3 Nd3 24.Nxe6 fxe6 25.Bd4 Rxb4 26.Bxa7 Rb1+ 27.Kg2 Rxh1 28.Kxh1 a5 29.f4 a4 30.Kg2 a3 31.Kf1 a2 32.Bd4 Nb4 33.Ke2 Nc2 34.Bc3 a1=Q 35.Bxa1 Nxa1 36.Kd3 g6 37.Kc3 Kc6 38.Kb2 Kc5 39.Kxa1 Kd4 40.Kb1 Ke3 41.Kc2 h5 42.Kd1 Kf2 43.Kd2 Kf3 44.Kd3 Kg2 45.Ke3 Kxh2 46.f5 gxf5 47.Kf2 Kh3 48.Kf3 d4 49.Kf2 Kg4 50.Kg2 d3 51.Kf2 f4 52.gxf4 Kxf4 53.Kf1 h4 54.Kf2 h3 0-1",
+    "1.e4 e5 2.Nc3 Bc5 3.Nf3 d6 4.d4 exd4 5.Nxd4 Qf6 6.Nd5 Qxd4 7.Qxd4 Bxd4 8.Nxc7+ Kd7 9.Nxa8 b6 10.Bb5+ Nc6 11.c3 Bf6 12.Bf4 Bb7 13.Rd1 Be7 14.Nxb6+ axb6 15.e5 f6 16.exd6 Bd8 17.O-O g5 18.Be3 Nh6 19.Be2 Ne5 20.Bb5+ Bc6 21.Bxc6+ Nxc6 22.Rd5 Nf7 23.Rfd1 Re8 24.c4 Nb4 25.R5d4 Nc2 26.R4d2 Nxe3 27.fxe3 Rxe3 28.b4 Rc3 29.Rd4 Ne5 30.a3 Rxc4 31.Rd5 Rc3 32.a4 Ra3 33.b5 Rxa4 34.R5d2 h5 35.Rd5 h4 36.Rc1 Rb4 37.Kh1 Rb3 38.h3 Rd3 39.Rxd3 Nxd3 40.Ra1 Ne5 41.Kg1 Nc4 42.Ra7+ Kxd6 43.Kf2 Ke6 44.Ra8 Be7 45.Ra2 Bc5+ 46.Ke2 Nd6 47.Rb2 Nc4 48.Ra2 Ne5 49.Ra8 Ng6 50.Rc8 Kd7 51.Rc6 Nf4+ 52.Kf3 Nd5 53.Ke4 Nc3+ 54.Kd3 Nxb5 55.Rxf6 Nd4 56.Rg6 Ne6 57.Ke4 b5 58.Kf5 Nd4+ 59.Ke4 b4 60.Rxg5 b3 61.Rg7+ Kc6 62.Rf7 b2 63.Rf6+ Kb5 64.Rf1 Nc2 65.Rb1 Bd4 66.Rf1 Kc4 67.Rd1 Bc3 68.Kf3 Na3 69.g4 hxg3 70.h4 b1=Q 71.Rxb1 Nxb1 72.Kxg3 Kd5 73.Kh3 Ke6 74.Kg4 Kf7 75.h5 Kg7 76.Kg5 Nd2 77.Kf4 Kh6 78.Ke3 Ba5 79.Kd3 Kxh5 80.Ke3 Kg5 81.Kd4 Kf5 82.Kd5 Ne4 83.Kd4 Bb6+ 84.Kc4 Ke5 85.Kd3 Ng3 86.Kc4 Kd6 87.Kd3 Kd5 88.Kc3 Ne2+ 89.Kb3 Ba5 90.Kc2 Kc4 91.Kb2 Bb4 92.Kc2 Nd4+ 93.Kb2 Kd3 94.Ka2 Kc2 95.Ka1 Ba3 96.Ka2 Bc1 97.Ka1 Nb5 98.Ka2 Nc3+ 99.Ka1 Bb2++");
+    var mm=new Array("&MoveForward=66","&MoveForward=43","&MoveForward=75","&MoveForward=39","");
+    window.open("ltpgnboard.html?SetImagePath="+ff+dd+"&AllowRecording=true&ApplyPgnMoveText="+gg[nn]+"&eval=AddText(\"<|td><td><H3>My computer vs. me<|H3>\"+GetHTMLMoveText(0,0,"+nn+"))"+mm[nn], "", "width=600, height=400, menubar=no, locationbar=no, resizable=yes, status=no, scrollbars=yes");
+  }
+  else
+  { gg=new Array(
+    "1.e4 e6 2.d4 c5 3.Nf3 cxd4 4.Nxd4 a6 5.Nc3 Qc7 6.g3 Bb4 7.Bd2 Nf6 8.Bd3 Nc6 9.Nxc6 Qxc6 10.O-O d5 11.e5 Nd7 12.Re1 Bc5 13.Qh5 Qb6 14.Re2 g6 15.Qh6 Bf8 16.Qf4 Qxb2 17.Rb1 Qa3 18.Rb3 Qc5 19.Re3 {luring the pawn} d4 20.Rf3 Nxe5 21.Ne4 Nxf3+ 22.Qxf3 Qe5 23.Nf6+ Kd8 24.Ng4 Qh5 (24. ... Qd6 25.Ba5+ Kd7 (25. ... b6 26.Bxb6+ Kd7 27.Qxa8) 26.Nf6+ Ke7 27.Bb4) (24. ... Qd5 25.Qf6+ Ke8 26.Ne5 h6 27.Bc4 Qe4 (27. ... Qd6 28.Qxf7+ Kd8 29.Ba5+ b6 30.Bxb6+ Qxb6 31.Rxb6) 28.Ba5 Be7 29.Qxf7++) 25.Qf6+ Ke8 26.Bg5 Bd7 27.Ne5 1-0",
+    "1.d4 Nf6 2.c4 e6 3.Nc3 d5 4.a3 Nc6 5.e3 Bd7 6.Nf3 Be7 7.Ne5 Bd6 8.f4 Bxe5 9.fxe5 Ne4 10.Nxe4 dxe4 11.Be2 Qh4+ 12.g3 Qh3 13.Bf1 Qf5 14.Bg2 Ne7 15.Rf1 Qg6 16.Qc2 Bc6 17.a4 Qh6 18.Qf2 Rf8 19.h3 O-O-O 20.b4 f5 21.b5 Bd7 22.a5 Qh5 23.Ba3 Rfe8 24.Bc5 Kb8 25.b6 cxb6 26.Bd6+ Ka8 27.axb6 a6 28.Ra3 Qg5 29.Kd2 Nc8 30.Bc7 Nxb6 31.Bxb6 Rc8 32.c5 Bb5 33.Rb1 Bc4 34.Bf1 Bxf1 35.Qxf1 Qxg3 36.Rxa6+ Kb8 37.Ra7 Rc6 38.Rba1 Kc8 39.Rxb7 Qh2+ 40.Kc3 1-0 {Black resigns}",
+    "1.d4 Nf6 2.c4 c5 3.d5 e6 4.Bg5 Be7 5.d6 Bf8 6.Nc3 h6 7.Bh4 Qb6 8.Nb5 Qa5+ 9.Qd2 Qxd2+ 10.Kxd2 Na6 11.f3 Nh5 12.g4 Nf4 13.e3 Ng6 14.Bg3 b6 15.h4 h5 16.g5 Bb7 17.Bg2 Bc6 18.a4 Bb7 19.e4 Bc6 20.e5 Bb7 21.Rh2 Bc6 22.Ne2 Bb7 23.f4 Bc6 24.a5 Bxg2 25.Rxg2 Nxe5 26.fxe5 O-O-O 27.Nxa7+ Kb7 28.Nb5 bxa5 29.Rxa5 f5 30.Nf4 Rb8 31.Ng6 Rg8 32.Rg1 Rc8 33.Rga1 Rc6 34.Bf2 Rb6 35.b4 Nb8 36.Bxc5 Ra6 37.Nc7 Rxa5 38.bxa5 Kc8 39.a6 Nxa6 40.Rxa6 f4 41.Rb6 f3 42.Nb5 1-0",
+    "1.d4 g6 2.e4 Bg7 3.Nf3 d6 4.c4 Nf6 5.Nc3 O-O 6.Be3 Ng4 7.Qd2 Nxe3 8.fxe3 Nc6 9.h4 Bg4 10.Be2 Qd7 11.Ng5 h6 12.Nh3 Bxe2 13.Qxe2 Rad8 14.O-O-O Nb4 15.g4 c5 16.d5 Qc7 17.a3 Bxc3 18.bxc3 Na6 19.Kd2 Qa5 20.Ra1 Nc7 21.a4 b6 {Now while the black queen is separated, this is the right time to attack the black king.} 22.g5 h5 23.Nf4 Qa6 24.Nxh5 gxh5 25.Kd3 e6 26.Qxh5 exd5 27.exd5 Nxd5 28.g6 Nf6 29.Qg5 Kg7 30.h5 fxg6 31.hxg6 Rh8 32.Rh7+ Nxh7 33.gxh7+ Kf7 34.Rf1+ Ke8 35.Qg7 Rc8 36.Rf7 1-0",
+    "1.e4 e6 2.d4 d5 3.e5 c5 4.Nf3 Nd7 5.Be3 cxd4 6.Bxd4 Bc5 7.c3 Ne7 8.Bd3 O-O 9.Bxh7+!! Kxh7 10.Ng5+ Kh6 11.Qg4 Bxd4 (not better is 11. ... Nf5 12.f4 Nf6 13.Qh3+ Kg6 14.Bxc5 Rh8 15.Qd3 Nh5 16.g4 Nxf4 17.gxf5+ Kxg5 18.Be3 Rh4 19.f6 g6 20.Bxf4+ Rxf4 21.h4+ Kg4 22.Rg1+ Kh5 23.Qe2+ Kh6 24.Qe3 Kh7 25.Qxf4 Qb6 26.Rg2 Bd7 27.Na3 Rg8 28.O-O-O Bc6 29.h5 gxh5 30.Rxg8 Kxg8 31.Qh6) 12.Qh4+ Kg6 13.Qh7+ Kxg5 14.h4+ Kf4 15.cxd4 Nf5 16.g3+ Kg4 17.f3+ Kxg3 18.Qh5 Ne3 19.Ke2 g6 20.Kxe3 gxh5 21.Nd2 1-0");
+    window.open("ltpgnboard.html?SetImagePath="+ff+dd+"&AllowRecording=true&ApplyPgnMoveText="+gg[nn]+"&eval=AddText(\"<|td><td><H3>Me vs. my computer<|H3>\"+GetHTMLMoveText(0,0,"+nn+"))", "", "width=600, height=400, menubar=no, locationbar=no, resizable=yes, status=no, scrollbars=yes");
+  }
+}
+function ShowProblem(nn)
+{ var dd=parent.frames[0].isDragDrop;
+  if (dd) dd="SetDragDrop=1&";
+  else dd="";
+  if (nn==0)
+    window.open("problemboard.html?"+dd+"Init=5rk1|5ppp|p1Q1p3|1R6|q7|4b1P1|P2RPP1P|6K1 w - - 0 1&ApplyPgnMoveText=1. Rd8<Bd2G> Qxb5 2. Qd6<Ad6f8R> Bxf2+ 3. Kxf2 Re8 4. a4<Ca2G><Ca4B> Qxa4 (4... Qf5+ 5. Kg1 Qb1+ 6. Kg2 Qe4+ 7. Kh3 Qf5+ 8. g4 Qf1+ 9. Kg3 Qe1+ 10. Kf3 Qf1+ 11. Ke3 Qc1+ 12. Kf2) 5. Qe7 1-0 &AddText=<B>Click on the board to make the moves which Kasparov played against Ribli in 1989!<|B>", "", "width=335, height=540, menubar=no, locationbar=no, resizable=yes, status=no, scrollbars=yes");
+  if (nn==1)
+    window.open("problemboard.html?"+dd+"Init=8|8|1KP5|3r4|8|8|8|k7 w KQkq - 0 1&ApplyPgnMoveText=1.c7 Rd6+ 2.Kb5 (2.Kb7? Rd7 and 3.--- Rxc7 draws) (2.Kc5? Rd1 and 3.--- Rc1 draws) 2. ... Rd5+ 3.Kb4 Rd4+ 4.Kb3 Rd3+ 5.Kc2 Rd4! (Now if 6.c8=Q? Rc4+ forces a stalemate.) 6.c8=R! threatens mate, and 6. ... Ra4 is the only answer. But then 7.Kb3! threatens the rook and mate, and White wins.&AddText=<B>The famous Saavedra Position:<br>White to play and win.<|B>", "", "width=335, height=580, menubar=no, locationbar=no, resizable=yes, status=no, scrollbars=yes");
+  //for the Opera browser we have to replace "/" by "|" to use the fenstring in the url 
+}
+function AnnotateGame(ff)
+{ var dd=parent.frames[0].isDragDrop;
+  if (dd) dd="&SetDragDrop=1";
+  else dd="";
+  window.open("pgnannotator.html?"+ff+dd+"&SetAnnotation=annotation.html&ParsePgn=2", "", "width=640, height=600, menubar=no, locationbar=no, resizable=yes, status=no, scrollbars=yes");
+}
+function InfoWindow(urlstr, ww, hh)
+{ window.open(urlstr,"","width="+ww+",height="+hh+",menubar=no,locationbar=no,resizable=yes,status=no,scrollbars=yes");
+}
+</script>
+<style id="nightModeStyle">
+html.cye-enabled.cye-nm:not(*:-webkit-full-screen) body,
+ html.cye-enabled.cye-nm:not(*:-webkit-full-screen) #cye-workaround-body {-webkit-filter:contrast(91%) brightness(84%) invert(1);}</style><style id="cyebody">html.cye-enabled.cye-lm body{background-color:#cde9d0 !important;border-color:rgb(51, 58, 52) !important;}</style><style id="cyediv">html.cye-enabled.cye-lm div{background-color:#cde9d0 !important;border-color:rgb(51, 58, 52) !important;}</style><style id="cyetable">html.cye-enabled.cye-lm th{background-color:#cde9d0 !important;border-color:rgb(51, 58, 52) !important;}html.cye-enabled.cye-lm td{background-color:#cde9d0 !important;border-color:rgb(51, 58, 52) !important;}</style><style id="cyetextInput">html.cye-enabled.cye-lm input[type=text]{background-color:#cde9d0 !important;border-color:rgb(51, 58, 52) !important;}html.cye-enabled.cye-lm textarea{background-color:#cde9d0 !important;border-color:rgb(51, 58, 52) !important;}</style><style id="cyeselect">html.cye-enabled.cye-lm select{background-color:#cde9d0 !important;border-color:rgb(51, 58, 52) !important;}</style><style id="cyeul">html.cye-enabled.cye-lm ul{background-color:#cde9d0 !important;border-color:rgb(51, 58, 52) !important;}</style><style id="cyeChangeByClick">html.cye-enabled.cye-lm .cye-lm-tag,html.cye-enabled.cye-lm.cye-lm-tag{background-color:#cde9d0 !important;border-color:rgb(51, 58, 52) !important;}</style><style type="text/css">/* This is not a zero-length file! */</style><style type="text/css">/* This is not a zero-length file! */</style></head>
+<body style="">
+<div align="center">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8847983737058518";
+//pgn
+google_ad_slot = "7502844712";
+google_ad_width = 468;
+google_ad_height = 60;
+//--></script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<h2>Welcome to the free LT-PGN-VIEWER</h2>
+<ul>
+<li><a href="http://www.lutanho.net/pgn/pgnhelp.html#a1">What is a PGN Viewer ?</a></li>
+<li><a href="http://www.lutanho.net/pgn/pgnhelp.html#a2">How do I work with this PGN Viewer ?</a></li>
+<li><a href="http://www.lutanho.net/pgn/pgnhelp.html#a3">How can I use this PGN Viewer for my own web projects ?</a></li>
+<li><a href="http://www.lutanho.net/pgn/pgnhelp.html#a4">What is new in this version of the LT-PGN-Viewer ?</a></li>
+<li><a href="http://www.lutanho.net/pgn/pgnhelp.html#a5">Where can I download the latest version of the LT-PGN-Viewer ?</a></li>
+</ul>
+<a name="a1">
+<h3><i>What is a PGN Viewer ?</i></h3>
+A pgn viewer (Portable Game Notation Viewer) takes the notation of a chess game and generates the moves of the single pieces, that means it generates the picture of the chess board for every single move. If you want to visualize the moves of a chess game from its notation, you will probably need a pgn viewer. 
+The <b>LT-PGN-Viewer 3.4 is freeware</b> which you can use for this purpose.
+</a><a name="a2">
+<h3><i>How do I work with this PGN Viewer ?</i></h3>
+First you need a pgn file. Type in the location of a pgn file in the <b><i>Url</i></b> input field, for instance <b>kasparov_deepblue_97_2.txt</b>, then click the <b><i>Open</i></b> button and the file will be opened in the right frame. If the file extension of the file is .pgn then it can be that there will popup a download dialog instead of loading the file in the right frame. In this case you could change the Windows settings so that a pgn file is always opened directly in a browser.<br>
+When the text of the pgn file is in the right frame, select the moves you want to view (starting with 1.) by mouse (click-drag-release), press Ctrl+C (copy), click with the mouse in the textarea next to the game board and press Ctrl+V (paste). Now click the button [ &gt; ] to play through the game. When you load another game, you have first to click the reset button [ I&lt; ].<br>
+When you have a pgn file with many games you can also do the following: After clicking the Open button, copy all the pgn text into the textarea in the right frame and click ok. This will open a new window with the viewer and the games will be included in a html page for automatic replay with clickable moves.
+The options which you checked for "drag &amp; drop", "rotate board" and "allow recording" will be applied for the viewer in the new window.
+</a><a name="a3">
+<h3><i>How can I use this PGN Viewer for my own web projects ?</i></h3>
+You can copy the viewer to your own website for instance to www.mysite.com/chess/pgnviewer/.
+Further you need some pgn files, for instance in www.mysite.com/chess/pgnfiles/. The viewer and the pgn files must
+reside under the same domain, otherwise the viewer can not access the pgn file content, because cross site scripting is
+not possible with modern web browsers due to security reasons.<br>
+The viewer can open a pure pgn file and automatically parse the pgn text to generate a webpage with all the games
+which are included in the file:<br>
+</a><a href="http://www.lutanho.net/pgn/ltpgnviewer.html?ny1927pgntxt.html&amp;ParsePgn=2" target="_blank">ltpgnviewer.html?ny1927pgntxt.html&amp;ParsePgn=2</a>.
+<strike>The file extension should be .txt instead of .pgn,</strike> 
+<b>The file extension should be .html instead of .pgn (with .txt it will not work with the Google Chrome Browser),</b>
+so that you can be sure that the file will be opened in
+any visitor's browser and that not the download dialog pops up.
+The pgn file will be loaded in the right frame of the viewer
+and after a few seconds it will be automatically transformed into an html file with a select box of all games. 
+You should always first try to use ParsePgn=2, if this doesn't work use ParsePgn=1. With ParsePgn=2 the parsing of the file
+will be faster and also the resulting html file is smaller in size, however in some cases the parsing will not work.
+This can happen, when there are characters in the pgn file which cause script errors. In this case use ParsePgn=1 which
+should always work in modern web browsers.<br> 
+To make the games replayable also in older web browsers and to make the loading of the page faster, do the following: 
+Right-click on the game area, view the source, and save it as an html file.
+Now you can use the link<br>
+<a href="http://www.lutanho.net/pgn/ltpgnviewer.html?ny1927pgn.html" target="_blank">ltpgnviewer.html?pgnfile.html</a> (without ParsePgn) to show the games, 
+which will work in all JavaScript-enabled web browsers.<br>
+To <a href="javascript:OpenLTPgnViewer(&#39;ltpgnviewer.html?ny1927pgntxt.html&amp;eval=ParsePgn(1,3)&#39;, 800, 400)">select a certain game from the pgn file</a> use <br><b>"ltpgnviewer.html?ny1927pgntxt.html&amp;eval=ParsePgn(1,<i>n</i>)"</b> (<i>n</i>=0,1,2,...) or<br><b>"ltpgnviewer.html?ny1927pgntxt.html&amp;eval=ParsePgn(2,<i>n</i>)"</b> (<i>n</i>=0,1,2,...) or<br>
+<a href="javascript:OpenLTPgnViewer(&#39;ltpgnviewer.html?ny1927pgn.html&amp;OpenGame=3&#39;, 800, 400)">ltpgnviewer.html?ny1927pgn.html&amp;OpenGame=<i>n</i></a> when using this with an already parsed pgn file.<br>
+When you have a pgn file of a <b>round robin tournament</b>, you can also use ParsePgn=3 or ParsePgn=4. This will generate a cross table, where you can click on a game result to replay the game: <a href="http://www.lutanho.net/pgn/ltpgnviewer.html?ny1927pgntxt.html&amp;ParsePgn=4" target="_blank">ltpgnviewer.html?ny1927pgntxt.html&amp;ParsePgn=4</a><br>
+When you prefer a score sheet layout, then add <b>&amp;SetScoreSheet=<i>n</i></b> (n=0,1,2) to the url string. Note that no comments and variations will be visible with this layout option:<br>
+<a href="javascript:OpenLTPgnViewer(&#39;ltpgnviewer.html?kasparov_deepblue_97_2.html&amp;ParsePgn=2&amp;SetScoreSheet=2&#39;, 800, 400)">ltpgnviewer.html?kasparov_deepblue_97_2.html&amp;ParsePgn=2&amp;SetScoreSheet=2</a><br>
+If you are familiar with <b>JavaScript</b> you can also use the viewer in another webpage. Here is the viewer with a HTML file in the right frame and the pgn board in the left frame which is controlled by
+some simple JavaScript commands included in the HTML file:<br><a href="javascript:OpenLTPgnViewerDemo()">ltpgnviewer.html?ltpgnviewerdemo.html</a>. <br>
+You can also open the pages pgnboard.html and ltpgnboard.html in a new window and <a href="javascript:OpenLTPgnBoard(&#39;?SetTitle=A Very Short Game&amp;AddText=&lt;B&gt;Click on the board to make a move!&lt;|B&gt;&amp;SetPgnMoveText=1.g4 e5 2.f4 Qh4+&amp;RotateBoard=true&amp;AllowRecording=true&amp;MoveForward=3&#39;,300,440)">pass the JavaScript commands via url</a><br>
+<b>
+window.open("ltpgnboard.html?SetTitle=A Very Short Game&amp;AddText=&lt;B&gt;Click on the board to make a move!&lt;|B&gt;&amp;SetPgnMoveText=1.g4 e5 2.f4 Qh4+&amp;RotateBoard=true&amp;AllowRecording=true&amp;MoveForward=3", "", "width=300, height=440, menubar=no, locationbar=no, resizable=yes, status=no, scrollbars=no");
+</b><br>  
+The commands will be executed in the same order as they appear in the url string. Note, that this will work with some browsers only via http, not in offline mode. Don't use the character for checkmate (#) in the PgnMoveText, because this is also html syntax for an anchor in an url and the commands in the url string would not be executed correctly. 
+If you want this to work also in the Opera browser, then use "|" instead of "/" in the url string, for instance use &lt;|td&gt; instead of &lt;/td&gt;. 
+<br>
+For generating <a href="javascript:OpenWindow(&#39;ltpgnviewer.html?black_king_walk.html&#39;)">HTML pages with pgn variations and comments</a> I recommend to use the <a href="http://www.lutanho.net/pgn/pgneditor.html" target="_blank">LT-PGN-EDITOR</a>.
+<br>
+If you want to <b>setup the start position</b> (for instance for a chess problem) you can do this the following way:
+Click the "Setup Board" button and after this on the board to generate the position you want. Click on "Ready" and
+the FEN string will be displayed in the FEN input field. It is assumed, that both black and white can
+still castle and that no "en passant" is possible in the first half move. If this is not the case, then please edit the
+FEN string by hand (for instance replace "KQkq" by "-" at the end of the FEN string). 
+Here is another page for the <a href="http://www.lutanho.net/pgn/board2fen.html" target="_blank">setup of a chess position</a> which is maybe a bit more convenient for you.<br>
+You can use the viewer also for <a href="javascript:OpenWindow(&#39;ltpgnviewer.html?leko_svidler.html&#39;)">Chess960 games</a> (Fischer Random Chess), 
+which has slightly different castling rules. For recording you can alternatively click on the king and then on the rook, when you want to castle.<br>
+The viewer also has <b>nullmove support</b>, the pgn for nullmoves should look like this:
+1. e4 <b>---</b> 2. d4 d5 3. <b>---</b>  e5<br>
+If you want to disable the recording of nullmoves, use AllowNullMove=0 in the url string or AllowNullMove(0)
+in the JavaScript which controls the viewer.<br>
+Moves can be recorded either by click &amp; click or by drag &amp; drop and the pieces can be jumping or sliding in the replay mode. 
+Drag &amp; drop is off by default, you can use the parameter <b>SetDragDrop=1</b> in the url string to set it on. 
+You can also click on the labels underneath the bord to switch it on/off. 
+To flip the board, click on the labels at the right side.<br>
+There are some additional sets of chess figures which
+have been generated from the free chess fonts from 
+<a href="http://www.enpassant.dk/chess/fonteng.htm" target="_blank">http://www.enpassant.dk/chess/fonteng.htm</a>.
+You can specify the <i>ImagePath</i> variable either directly by editing the file ltpgnboard.html or use it as parameter in the URL string:<br>
+<b>ltpgnviewer.html?my_games.html&amp;SetImagePath=alpha30/</b><br>
+To show a board with a border around the squares, either add the JavaScript command SetBorder(1) at the top of the file ltpgnboard.html or append <b>&amp;SetBorder=1</b> to the url string (usefull when you want to give visual hints by colored borders):<br>
+<b>default border:</b>
+<a href="javascript:ShowGame(0,&#39;&#39;)">default</a>, 
+<a href="javascript:ShowGame(1,&#39;cases27|&#39;)">cases27</a>,
+<a href="javascript:ShowGame(2,&#39;alpha30|&#39;)">alpha30</a>,
+<a href="javascript:ShowGame(3,&#39;merida33|&#39;)">merida33</a>,
+<a href="javascript:ShowGame(4,&#39;leipzig35|&#39;)">leipzig35</a><br>
+<b>visual hints, border=1:</b>
+<a href="javascript:ShowGame(0,&#39;&#39;,1)">default</a>, 
+<a href="javascript:ShowGame(1,&#39;cases27|&#39;,1)">cases27</a>,
+<a href="javascript:ShowGame(2,&#39;alpha30|&#39;,1)">alpha30</a>,
+<a href="javascript:ShowGame(3,&#39;merida33|&#39;,1)">merida33</a>,
+<a href="javascript:ShowGame(4,&#39;leipzig35|&#39;,1)">leipzig35</a><br>
+To give <b>visual hints</b> by <b>A</b>rrows, <b>B</b>orders or bg<b>C</b>olors, you can add <b>&lt;</b>commands<b>&gt;</b> to the moves, i. e.<br>
+<b>1.e4 d5&lt;Ae4d5R&gt;&lt;Be4G&gt;&lt;Cd5B&gt;</b><br>
+The commands must be appended directly behind a move, without spaces, included in <b>&lt;&gt;</b> and consist of the letter
+A (Arrow), B (Border) or C (bgColor) + the target square(s) + R (red), G (green) or B (blue) or a hex color code i.e. FFFFFF <b>(without #)</b>.<br>
+Instead of the <b>target squares</b> you can also use <b>this</b> or <b>last</b> to emphasize the current move or the last move which was made, i.e.<br>
+<b>1.g4 e5 2.f4 Qh4+&lt;BlastG&gt;&lt;AthisR&gt;</b><br>
+It is possible to include additional images before or after the board in the HTML page, this will not bother the script.
+If you want to use the provided additional chess figure sets or create your own sets for the use on your website then
+read the additional remarks about <a href="javascript:InfoWindow(&#39;labelgenerator.html&#39;,700,500)">chess pieces and labels</a>.<br>
+For using more than one board in a webpage have a look at the 
+<a href="http://www.lutanho.net/pgn/multiboard1.html" target="_blank">multi board example 1</a> and 
+<a href="http://www.lutanho.net/pgn/multiboard2.html" target="_blank">multi board example 2</a> (uses iframes).
+The <a href="http://www.lutanho.net/pgn/miniboarddemo.html" target="_blank">mini board example</a> shows, how
+to include and use the viewer within a menu.<br>
+The viewer can also be used for chess problems and puzzles:<br>
+<a href="javascript:ShowProblem(0)">example 1</a> (make some wrong moves to see visual hints),<br>
+<a href="javascript:ShowProblem(1)">example 2</a> (without hints).<br>
+The viewer comes with a <a href="javascript:AnnotateGame(&#39;db_pgn.txt&#39;)">pgn annotator</a> which can be helpful for webmasters to let their users annotate chess games from a database. Note that this is only an example which doesn't really save the annotation. For further hints how to use it have a look at the source code of the file <a href="http://www.lutanho.net/pgn/annotation.html" target="_blank">annotation.html</a>.
+<br>
+You can also <b>broadcast live games in real time</b>. All you need is to update a text file with the pgn on your server.
+The following example simulates this by using the files livetest1.txt ... livetest9.txt, so that you can see how it works:
+<a href="javascript:OpenLTPgnViewer(&#39;ltpgnlive.html?livetest1.txt&amp;SetScoreSheet=2&#39;, 800, 400)">ltpgnlive.html?livetest1.txt&amp;SetScoreSheet=2</a><br>
+<a href="javascript:OpenLTPgnViewer(&#39;ltpgnlive.html?livetest1.txt&amp;SetImagePath=leipzig35|&amp;SetBGColor=E0C8A0&#39;, 800, 400)">ltpgnlive.html?livetest1.txt&amp;SetImagePath=leipzig35|&amp;SetBGColor=E0C8A0</a>
+The update is currently every 10 seconds, you can change this by editing the line <i><b>var UpdateInterval=10; //10 seconds</b></i> in the file ltpgnlive.html.
+<br>
+You can generate <b>animations</b> which can run without user interaction, see the tutor example
+<a href="javascript:OpenLTPgnViewer(&#39;ltpgnlive.html?livetest1.txt&amp;SetScoreSheet=2&#39;, 800, 400)">
+</a><a href="javascript:OpenWindow(&#39;animation1.html&#39;, &#39;fullscreen=yes,scrollbars=no&#39;)">how to make a quick win</a> (uses Microsoft Agent technology).
+When you use Internet Explorer, then the animation shows the MSAgent Merlin ((c) 1996-1998 Microsoft Corporation, all rights reserved), who speaks the comments.
+This example loads a bunch of ActiveX controls, which should normally be downloaded automatically from the Microsoft website,
+if not already installed. If this doesn't work, go to the <a href="http://www.microsoft.com/msagent/downloads/user.asp" target="_blank">Microsoft Agent download page</a>
+to see what you are missing. Have a look at the source code of the file animation1.html, to see how you can create your own animations. 
+<br>
+You also can convert pgn from/into another language: Paste the pgn text into the text area at the right side of the game board and input you SAN letters into the input field next to the button Show, then click "Show". This works also in conjunction with parsing pgn files. When you want to use another SAN in an html file which was generated by parsing a pgn file, then append the SAN at the url string in the following way:<br>
+<a href="javascript:OpenLTPgnViewer(&#39;ltpgnviewer.html?ny1927pgn.html&amp;ShowSAN=KDTLSB&#39;, 800, 400)">ltpgnviewer.html?ny1927pgn.html&amp;ShowSAN=KDTLSB</a><br>
+You can also directly convert pgn files by using the <a href="javascript:InfoWindow(&#39;convert_san.html&#39;,720,540)">LT-SAN-CONVERTER</a>.<br>
+Some other tools which might be useful for you:<br>
+<a href="javascript:InfoWindow(&#39;pgn2fen.html&#39;,720,540)">LT-PGN-TO-FEN-CONVERTER</a><br>
+<a href="javascript:InfoWindow(&#39;pgncontrolexample.html&#39;,600,300)">LT-PGN-CONTROL</a><br>
+<a href="javascript:InfoWindow(&#39;calc_elo.html&#39;,480,440)">LT-ELO-CALCULATOR</a><br>
+<br>
+<a name="a4">
+<h3><i>What's new ?</i></h3>
+<ul>
+<li>get FEN notation from any position (v. 1.3)
+</li><li>script file 'ltpgnviewer.js', which loads only once if several pages with PGN viewers are open and can also be used as an engine for other applications (v. 1.3)
+</li><li>rotate board (v. 1.4)  
+</li><li>record moves: click on a piece and after that on its new destination on the game board (v. 1.4)  
+</li><li>autoplay - back buttons and forward buttons can be used to change the direction (v. 1.5)  
+</li><li>saying "black to move" or "white to move" when not using standard FEN (v. 1.5)  
+</li><li>passing JavaScript commands via url string (v. 1.6)
+</li><li>generating HTML pages with variations (v. 2.0)
+</li><li>setup board by mouse click to generate FEN string (v. 2.1)
+</li><li>display of webpage with games after loading and parsing a pure pgn file (v. 2.2)
+</li><li>support of Chess960 castling rules (v. 2.3)
+</li><li>additional chess sets, improved layout and other small improvements (v. 2.4)
+</li><li>multiboards and miniboards support, speed improvement (v. 2.5)
+</li><li>nullmove support (---), reading long SAN moves (Ng1-f3) and Smith notation (g1f3) (v. 2.6)
+</li><li>improved layout for recording, chess problem support, some bug fixes (v. 2.7)
+</li><li>pgn annotator to help webmasters to let their users annotate chess games (v. 2.8)
+</li><li>drag &amp; drop + sliding pieces + all images with transparent background (v. 3.0)
+</li><li>generating crosstables from pgn files, converting SAN in the PGN move text, visual hints by colored borders (v. 3.1)
+</li><li>visual hints by arrows and colored background, score sheet layout, bgcolor/images/border customizable, print pawn structure (v. 3.2)
+</li><li>show captured pieces, support for live game coverage (v. 3.3)
+</li><li>highlight candidate moves, show animations, test for checkmate and stalemate (v. 3.4)
+</li></ul>
+</a><a name="a5">
+<h3><i>Where can I download the latest version of the LT-PGN-VIEWER ?</i></h3>
+Here is the latest version of the LT-PGN-Viewer: </a><a href="http://www.lutanho.net/pgn/pgnviewer.zip" target="_blank"><b>pgnviewer.zip</b></a>.
+From time to time have a look at the homepage of the author <a href="http://www.lutanho.net/index.html" target="_blank">www.lutanho.net</a> for a new update.
+You can send me an <a href="mailto:lutz.tautenhahn@lutanho.net">email</a> if you have any questions, suggestions, bug reports or hints. 
+<table border="0" cellpadding="2" cellspacing="2" width="100%">
+<tbody><tr><td><small>LT-PGN-Viewer is freeware, but when it makes you feel better, you can donate. This will
+maybe help me, to find the motivation for user support and further developments (and  maybe help you to get a better 
+karma ;)</small></td><td>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+<input type="hidden" name="cmd" value="_xclick">
+<input type="hidden" name="business" value="lutz.tautenhahn@t-online.de">
+<input type="hidden" name="item_name" value="LT-PGN-Viewer">
+<input type="hidden" name="item_number" value="LT-PGN-Viewer">
+<input type="hidden" name="no_shipping" value="1">
+<input type="hidden" name="lc" value="US">
+<input type="radio" name="currency_code" checked="" value="EUR"><small>EUR</small><br>
+<input type="radio" name="currency_code" value=""><small>US$</small><br>
+<input type="image" src="./x-click-but04.gif" border="0" name="submit2" alt="Make payments with PayPal - it&#39;s fast, free and secure!">
+</form></td></tr></tbody></table>
+<hr>
+<div align="center">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8847983737058518";
+//pgn
+google_ad_slot = "7502844712";
+google_ad_width = 468;
+google_ad_height = 60;
+//--></script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+</body><div id="cyeBlackMaskLayer" style="background-color: rgb(19, 19, 19); position: fixed; width: 1980px; height: 1080px; z-index: -2147483648;"></div></html>

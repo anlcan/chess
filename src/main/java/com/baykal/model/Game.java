@@ -34,33 +34,20 @@ public class Game {
                 .filter(Move::isCheck)
                 .findFirst()
                 .isPresent();
-
-
-
     }
 
     public Player start(){
         Player nextTurn = one.getType() == Type.WHITE? one : two;
         while(moveCount < 46) {
-            System.out.println(board.toString());
             Move nextMove = nextTurn.getMove(board);
             board.apply(nextMove);
             if (isCheck(nextTurn)){
                 break;
             }
-
             moveCount++;
             nextTurn = nextTurn == one? two : one;
-
-
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
 
-        System.out.printf(board.toPgnString());
         return nextTurn;
     }
 

@@ -47,21 +47,21 @@ public class Piece {
 
         switch (kind){
             case KING:
-//                current.advance(1).ifPresent(positions::add);
-//                current.advance(-1).ifPresent(positions::add);
-//                current.lateral(1).ifPresent(positions::add);
-//                current.lateral(-1).ifPresent(positions::add);
+                current.advance(1).ifPresent(positions::add);
+                current.advance(-1).ifPresent(positions::add);
+                current.lateral(1).ifPresent(positions::add);
+                current.lateral(-1).ifPresent(positions::add);
 
                 break;
-//              case QUEEN:
-//                  positions.addAll(current.allLateral());
-//                  positions.addAll(current.allHorizontal());
-//                  break;
-//              case ROOK:
-//                  positions.addAll(current.allLateral());
-//                  break;
-//              case BISHOP:
-//                  break;
+            case QUEEN:
+                  positions.addAll(current.allLateral());
+                  positions.addAll(current.allHorizontal());
+                  break;
+            case ROOK:
+                  positions.addAll(current.allLateral());
+                  break;
+            case BISHOP:
+                break;
             case KNIGHT:
 
                   current.advance(1)
