@@ -5,5 +5,9 @@ package com.baykal.model;
  */
 public enum Type {
     BLACK,
-    WHITE
+    WHITE;
+
+    Type opposite(){
+        return this == BLACK? WHITE : BLACK;
+    }
 }

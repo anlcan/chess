@@ -25,25 +25,14 @@ public class Game {
         this.board = new Board();
     }
 
-    boolean isCheck(Player player) {
-        return board.getPieces().stream()
-                .filter(p -> p.getType().equals(player.getType()))
-                .map(piece -> piece.moves(board))
-                .flatMap(Collection::stream)
-                .filter(Move::isCheck)
-                .findFirst()
-                .isPresent();
-    }
 
     public Player start(){
         Player nextTurn = one.getType() == Type.WHITE? one : two;
-        while(moveCount < 46) {
+        while(moveCount < 90) {
             Move nextMove = nextTurn.getMove(board);
             board.apply(nextMove);
-            if (isCheck(nextTurn)){
-                // todo
-                break;
-            }
+
+
             moveCount++;
             nextTurn = nextTurn == one? two : one;
         }

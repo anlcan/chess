@@ -12,9 +12,14 @@ import java.util.stream.Collectors;
  */
 public class Board {
 
-    public static final List<String> Y  = Arrays.asList("a", "b", "c" , "d" , "e" , "f" , "g" , "h");
+    public static final List<String> Y = Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h");
 
     private final List<Piece> pieces;
+
+    public boolean isCheck() {
+        return check;
+    }
+
     private boolean check = false;
     private final List<MoveText> moveTexts = new ArrayList<>();
 
@@ -34,8 +39,8 @@ public class Board {
 
         @Override
         public String toString() {
-            String sep = isKill? "x": "";
-            return  kind.getSign()
+            String sep = isKill ? "x" : "";
+            return kind.getSign()
                     + sep
                     + from.x
                     + to.toString()
@@ -52,8 +57,8 @@ public class Board {
 
         //pawns
         for (String s : Y) {
-           pieces.add(new Piece(Kind.PAWN, Type.WHITE, new Position(s, 2)));
-           pieces.add(new Piece(Kind.PAWN, Type.BLACK, new Position(s, 7)));
+            pieces.add(new Piece(Kind.PAWN, Type.WHITE, new Position(s, 2)));
+            pieces.add(new Piece(Kind.PAWN, Type.BLACK, new Position(s, 7)));
         }
 
         // rooks
@@ -84,27 +89,29 @@ public class Board {
     }
 
 
-    public void apply(Move nextMove) {
-        Optional<Piece> piece = findPiece(nextMove.getCurrent());
-        if ( piece.isPresent()) {
-            Piece p = piece.get();
-            Optional<Piece> captured = findPiece(nextMove.getNext());
-            if (captured.isPresent()){
-                assert captured.get().getType() != p.getType();
-                pieces.remove(captured.get());
-            }
-
-            p.setPosition(nextMove.getNext());
-            this.moveTexts.add(
-                    new MoveText(p.getKind(), nextMove.getCurrent(), nextMove.getNext(),
-                            captured.isPresent()));
-
+    public Board apply(Move nextMove) {
+        Piece piece = findPiece(nextMove.getCurrent()).get();
+        if (nextMove.isCapture()) {
+            Piece captured = nextMove.getTarget();
+            assert captured.getType() != piece.getType();
+            pieces.remove(captured);
         }
+
+        piece.setPosition(nextMove.getNext());
+        this.moveTexts.add(
+                new MoveText(piece.getKind(), nextMove.getCurrent(), nextMove.getNext(),
+                        nextMove.isCapture()));
+
+
+        check = possibleMoves(piece.getType()).stream()
+                .anyMatch(Move::isCheck);
+
+        return this;
     }
 
-    public List<Move> possibleMoves(Player player){
+    public List<Move> possibleMoves(Type type) {
         return getPieces().parallelStream()
-                .filter(p -> p.getType().equals(player.getType()))
+                .filter(p -> p.getType().equals(type))
                 .map(p -> p.moves(this))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
@@ -116,12 +123,12 @@ public class Board {
 
         for (int i = 8; i > 0; i--) {
             for (String s : Y) {
-                Optional<Piece> piece =  findPiece(new Position(s, i));
-                if (piece.isPresent()){
-                    sb.append((char)27)
-                            .append(piece.get().getType()==Type.BLACK?"[31m":"[33m")
+                Optional<Piece> piece = findPiece(new Position(s, i));
+                if (piece.isPresent()) {
+                    sb.append((char) 27)
+                            .append(piece.get().getType() == Type.BLACK ? "[31m" : "[33m")
                             .append(piece.get().getKind().toString().charAt(0))
-                    .append((char)27)
+                            .append((char) 27)
                             .append("[0m");
 
 
@@ -135,26 +142,24 @@ public class Board {
     }
 
     // https://lichess.org/import
-    public String toPgnString(){
+    public String toPgnString() {
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0, k=1; i <moveTexts.size(); i++) {
-            if (i%2==0) {
+        for (int i = 0, k = 1; i < moveTexts.size(); i++) {
+            if (i % 2 == 0) {
                 sb.append("\n").append(k++).append(".");
             }
 
-            sb.append(moveTexts.get(i)) ;
+            sb.append(moveTexts.get(i));
         }
 
         return sb.toString();
     }
 
 
-
-    public Optional<Piece> findPiece(Position position){
-          return pieces.stream().filter(p -> p.getCurrent().equals(position)).findFirst();
+    public Optional<Piece> findPiece(Position position) {
+        return pieces.stream().filter(p -> p.getCurrent().equals(position)).findFirst();
     }
-
 
 
     public boolean isMate() {
@@ -166,7 +171,7 @@ public class Board {
     }
 
     public List<Piece> getPieces() {
-        return pieces;
+        return   new ArrayList<>(pieces);
     }
 
 

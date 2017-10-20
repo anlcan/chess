@@ -52,11 +52,12 @@ public class Piece {
     }
 
     private Optional<Move> evaluate(Position next, Board board){
-        Optional<Piece> pieceOptional = board.findPiece(next);
-        if (pieceOptional.isPresent()) {
-            if (pieceOptional.get().getType() == type) {
+        Optional<Piece> targetPiece = board.findPiece(next);
+        if (targetPiece.isPresent()) {
+            if (targetPiece.get().getType() == type) {
                 return Optional.empty();
             } else {
+
                 //todo
                 if (kind==Kind.PAWN) {
                     return Optional.empty();
@@ -69,15 +70,12 @@ public class Piece {
         if (kind != Kind.KNIGHT) {
             boolean present = current.diff(next).stream()
                     .map(board::findPiece)
-                    .filter(Optional::isPresent)
-                    .findFirst()
-                    .isPresent();
+                    .anyMatch(Optional::isPresent);
             if (present) {
                 return Optional.empty();
             }
         }
-        boolean isCheck = pieceOptional.isPresent() && pieceOptional.get().kind==Kind.KING;
-        return Optional.of(new Move(current, next, isCheck));
+        return Optional.of(new Move(current, next, targetPiece));
     }
 
     @Override
