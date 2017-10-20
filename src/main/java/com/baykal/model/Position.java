@@ -1,9 +1,7 @@
 package com.baykal.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.IntStream;
 
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:56
@@ -13,6 +11,8 @@ public class Position {
     final char _x;
     final int y;
     String tag;
+
+    public static final List<Integer> PM = Arrays.asList(-1,1);
 
     public Position(String x, int y) {
         this.x = x;
@@ -40,12 +40,35 @@ public class Position {
             return Optional.of(new Position( this.x(), this.y() + y).setTag(tag));
     }
 
+    public Optional<Position> diagonal(int x, int y){
+         if (lateral(x).isPresent()){
+            return lateral(x).get().advance(y);
+        } else {
+             return Optional.empty();
+         }
+    }
+
     public Optional<Position> lateral(int x) {
         String s =  String.valueOf((char) (_x + x));
         if (Board.Y.contains(s))
             return Optional.of(new Position(s, this.y()).setTag(tag));
         else
             return Optional.empty();
+    }
+
+    public List<Position> allDiagonal(){
+        List<Position> positions = new ArrayList<>();
+        for (Integer x : PM) {
+            for (Integer y : PM) {
+                Position start = this;
+                while ( start.diagonal(x, y).isPresent()){
+                    start = start.diagonal(x,y).get();
+                    positions.add(start);
+                }
+
+            }
+        }
+        return positions;
     }
 
     public List<Position> allLateral(){
@@ -85,22 +108,33 @@ public class Position {
     public List<Position> diff(Position target) {
         List<Position> pos = new ArrayList<>();
 
+        int min_y = Math.min(target.y(), y);
+        int max_y = Math.max(target.y(), y);
+        int min_x = Math.min(target.x().charAt(0), _x);
+        int max_x = Math.max(target.x().charAt(0), _x);
+
+        // todo this can be reduced..
         if (Objects.equals(target.x(), this.x)) {
-            for(int i = Math.min(target.y(), y) + 1;
-                i <Math.max(target.y(), y);
-                i++) {
-                    pos.add(new Position(this.x, i));
+            for(int i = min_y  + 1; i < max_y; i++) {
+                pos.add(new Position(this.x, i));
             }
         } else if (target.y() == this.y) {
-            for(int i = Math.min(target.x().charAt(0), _x) + 1;
-                i <Math.max(target.x().charAt(0), _x);
-                i++) {
+            for(int i = min_x + 1; i < max_x; i++) {
                 pos.add(new Position(String.valueOf((char)i), this.y));
-
             }
         } else if (Math.abs(target.y() - y) ==
                 Math.abs(target.x().charAt(0) - _x)){
 
+            int s1 = Integer.compare(target.y(), y);
+            int s2 = Integer.compare(target.x().charAt(0), _x);
+
+            for(int i = _x + s2, j = y + s1; j != target.y(); ){
+
+                pos.add(new Position(String.valueOf((char)i), j));
+                j += s1;
+                i += s2;
+
+            }
         }
 
         return pos;

@@ -10,27 +10,24 @@ import java.util.function.Function;
 public enum Kind {
 
     KING("K", new Kind.KingPositions()),
-    QUEEN("Q", new Kind.QueenPosition()),
-    ROOK("R", new Kind.EmptyPositions()),
-    BISHOP("B", new Kind.EmptyPositions()),
+    QUEEN("Q", new QueenPosition()),
+    ROOK("R", new Kind.RookPositions()),
+    BISHOP("B", new Kind.BishopPositions()),
     KNIGHT("N", new Kind.KnightPosition()),
-    PAWN(" ", new  Kind.EmptyPositions());
+    PAWN(" ", new  Kind.EmptyPositions());  //todo black_pawn≤ white_pawn?
 
-    public  Function<Position, List<Position>> positions;
+    public final Function<Position, List<Position>> positions;
 
-    private final String PGN_SIGN;
+    private final String pgnsign;
 
-    public void setPositions(Function<Position, List<Position>> positions) {
-        this.positions = positions;
-    }
 
     Kind(String sign, Function<Position, List<Position>> positionFunction) {
-        PGN_SIGN = sign;
+        pgnsign = sign;
         positions = positionFunction;
     }
 
     public String getSign() {
-        return PGN_SIGN;
+        return pgnsign;
     }
 
     public static class EmptyPositions implements Function<Position, List<Position>> {
@@ -41,6 +38,24 @@ public enum Kind {
         }
     }
 
+    public static class BishopPositions implements Function<Position, List<Position>> {
+
+        @Override
+        public List<Position> apply(Position current) {
+            return current.allDiagonal();
+        }
+    }
+
+    public static class RookPositions implements Function<Position, List<Position>> {
+
+        @Override
+        public List<Position> apply(Position current) {
+            List<Position> positions = new ArrayList<>();
+            positions.addAll(current.allHorizontal());
+            positions.addAll(current.allLateral());
+            return positions;
+        }
+    }
 
     public static class KingPositions implements Function<Position, List<Position>> {
 
@@ -66,6 +81,7 @@ public enum Kind {
             List<Position> positions = new ArrayList<>();
             positions.addAll(current.allLateral());
             positions.addAll(current.allHorizontal());
+            positions.addAll(current.allDiagonal());
             return positions;
         }
     }
