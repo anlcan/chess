@@ -11,12 +11,12 @@ import java.util.stream.Stream;
  */
 public enum Kind {
 
-    KING("K", new Kind.KingPositions()),
-    QUEEN("Q", new QueenPosition()),
-    ROOK("R", new Kind.RookPositions()),
-    BISHOP("B", new Kind.BishopPositions()),
-    KNIGHT("N", new Kind.KnightPosition()),
-    PAWN(" ", new  Kind.EmptyPositions());  //todo black_pawn≤ white_pawn?
+    KING("K",99, new Kind.KingPositions()),
+    QUEEN("Q", 9, new QueenPosition()),
+    ROOK("R", 5, new Kind.RookPositions()),
+    BISHOP("B", 3, new Kind.BishopPositions()),
+    KNIGHT("N", 3, new Kind.KnightPosition()),
+    PAWN(" ", 1, new  Kind.EmptyPositions());  //todo black_pawn≤ white_pawn?
 
     public final Function<Position, List<Position>> positions;
 
@@ -25,11 +25,14 @@ public enum Kind {
     }
 
     private final String pgnsign;
+    //https://en.wikipedia.org/wiki/Chess_piece_relative_value
+    public final int value;
 
 
-    Kind(String sign, Function<Position, List<Position>> positionFunction) {
+    Kind(String sign, int value,  Function<Position,List<Position>> positionFunction) {
         pgnsign = sign;
         positions = positionFunction;
+        this.value = value;
     }
 
     public String getSign() {

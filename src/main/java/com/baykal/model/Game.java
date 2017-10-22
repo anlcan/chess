@@ -1,5 +1,7 @@
 package com.baykal.model;
 
+import com.baykal.strategy.CaptureOptimize;
+
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:45
  */
@@ -20,6 +22,7 @@ public class Game {
 
         this.one = one;
         this.two = two;
+        two.setStategy(new CaptureOptimize(two.getType()));
         this.board = new Board();
         this.nextTurn = one.getType() == Type.WHITE? one : two;
     }

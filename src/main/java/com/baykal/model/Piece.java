@@ -11,7 +11,6 @@ public class Piece {
 
     private final Kind kind;
     private final Type type;
-    private final List<Position> past = new ArrayList<>();
     private Position current;
 
     public Piece(Kind kind, Type type, Position current) {
@@ -22,7 +21,6 @@ public class Piece {
 
     public void setPosition(Position position) {
         this.current = position;
-        past.add(current);
     }
 
     public Position getCurrent() {
