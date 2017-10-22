@@ -5,7 +5,7 @@ import java.util.Optional;
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:55
  */
-public class Move {
+public class Move implements Comparable<Integer>{
     private final Piece origin;
     private final Position current;
     private final Position next;
@@ -77,5 +77,14 @@ public class Move {
 
         return new Move(null, null, null);
 
+    }
+
+    @Override
+    public int compareTo(Integer value) {
+        return Integer.compare(this.origin.getKind().value, value);
+    }
+
+    public static int compareCaptureValue(Move m1, Move m2){
+        return m1.compareTo(m2.getTarget().getKind().value);
     }
 }

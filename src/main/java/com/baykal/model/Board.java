@@ -62,7 +62,7 @@ public class Board {
     }
 
 
-    public void apply(Move nextMove) {
+    public Board apply(Move nextMove) {
         assert nextMove.getNext() != null;
         Optional<Piece> pieceO = findPiece(nextMove.getCurrent());
 
@@ -92,6 +92,7 @@ public class Board {
         nextMove.setCheck(check);
         this.moveTexts.add(nextMove);
 
+        return this;
     }
 
     public boolean canCaptureKing(Type type) {
@@ -108,7 +109,7 @@ public class Board {
     }
 
     public List<Move> possibleMoves(Type type) {
-        return pieces.stream()
+        return pieces.parallelStream()
                 .filter(p -> p.getType().equals(type))
                 .map(p -> p.moves(this))
                 .flatMap(Collection::stream)

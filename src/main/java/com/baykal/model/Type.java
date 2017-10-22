@@ -7,7 +7,7 @@ public enum Type {
     BLACK,
     WHITE;
 
-    Type opposite(){
+    public Type opposite(){
         return this == BLACK? WHITE : BLACK;
     }
 }

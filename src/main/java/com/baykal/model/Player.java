@@ -1,8 +1,8 @@
 package com.baykal.model;
 
 
-import com.baykal.strategy.CaptureOptimize;
-import com.baykal.strategy.Random;
+import com.baykal.strategy.AbstractStrategy;
+import com.baykal.strategy.RandomStrategy;
 
 import java.util.function.Function;
 
@@ -19,7 +19,7 @@ public class Player {
     public Player(String name, Type type) {
         this.name = name;
         this.type = type;
-        this.moveStrategy = new Random(type);
+        this.moveStrategy = new RandomStrategy(type);
     }
 
     public Move getMove(Board board){
@@ -30,7 +30,7 @@ public class Player {
         return type;
     }
 
-    public void setStategy(CaptureOptimize stategy) {
+    public void setStategy(AbstractStrategy stategy) {
         this.moveStrategy = stategy;
     }
 }

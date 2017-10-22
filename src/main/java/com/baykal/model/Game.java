@@ -1,6 +1,6 @@
 package com.baykal.model;
 
-import com.baykal.strategy.CaptureOptimize;
+import com.baykal.strategy.CaptureOptimizeStrategy;
 
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:45
@@ -12,6 +12,7 @@ public class Game {
     private Player two;
 
     private Board board;
+    private boolean isMate;
 
     public Game(Player one, Player two) {
         if (one.getType() == Type.BLACK) {
@@ -22,7 +23,6 @@ public class Game {
 
         this.one = one;
         this.two = two;
-        two.setStategy(new CaptureOptimize(two.getType()));
         this.board = new Board();
         this.nextTurn = one.getType() == Type.WHITE? one : two;
     }
@@ -35,7 +35,7 @@ public class Game {
     public Player start() {
 
         while(board.moveTexts.size() < 300) {
-            boolean isMate = step();
+            isMate = step();
             nextTurn = opposite(nextTurn);
 
             if (isMate){
@@ -47,7 +47,7 @@ public class Game {
     }
 
     public boolean step() {
-        Move nextMove = nextTurn.getMove(board);
+        Move nextMove = nextTurn.getMove(board.clone());
         if ( null == nextMove) {
             // mate
             return true;
@@ -59,5 +59,9 @@ public class Game {
 
     public Board getBoard() {
         return board;
+    }
+
+    public boolean isMate() {
+        return isMate;
     }
 }

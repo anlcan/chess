@@ -121,4 +121,5 @@ public class AppTest {
         b2.apply(candidate);
         assertFalse(b3.equals(b2));
     }
+
 }

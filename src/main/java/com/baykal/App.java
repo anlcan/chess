@@ -3,6 +3,7 @@ package com.baykal;
 import com.baykal.model.Game;
 import com.baykal.model.Player;
 import com.baykal.model.Type;
+import com.baykal.strategy.CaptureOptimizeStrategy;
 
 import java.awt.*;
 import java.io.BufferedWriter;
@@ -17,11 +18,16 @@ import java.net.URISyntaxException;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
+
+    public static final Player WHITE = new Player("white", Type.WHITE);
+    public static final Player BLACK = new Player("black", Type.BLACK);
+
+    public static void main(String[] args ) {
+
+        WHITE.setStategy(new CaptureOptimizeStrategy(Type.WHITE));
         Game g = new Game(
-                new Player("white", Type.WHITE),
-                new Player("black", Type.BLACK));
+                WHITE,
+                BLACK);
         g.start();
 
         try (FileWriter fw = new FileWriter("src/main/resources/pgn.html")) {
