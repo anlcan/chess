@@ -11,6 +11,7 @@ public class Move {
     private final Position next;
     private final Optional<Piece> target;
     private boolean check;
+    private Kind promote = null;
 
     public Move(Piece origin , Position next, Optional<Piece> target) {
         this.next = next;
@@ -46,6 +47,10 @@ public class Move {
         return target.get();
     }
 
+    public void setPromote(Kind promote) {
+        this.promote = promote;
+    }
+
     public Piece getOrigin() {
         return origin;
     }
@@ -54,11 +59,13 @@ public class Move {
     public String toString() {
         String sep = isCapture()? "x" : "";
         String check = isCheck()? "+" : "";
+        String pro = promote != null? "=" + promote.getSign() : "";
         return origin.getKind().getSign()
                 + sep
                 + getCurrent().x + getCurrent().y
                 + next.toString()
                 + check
+                + pro
                 + " ";
     }
 

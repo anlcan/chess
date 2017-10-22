@@ -1,6 +1,5 @@
 package com.baykal.model;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -108,6 +107,11 @@ public class Piece {
         }
 
         return positions;
+    }
+
+    public boolean canPromote(){
+        return ((getKind() == Kind.PAWN && getType() ==Type.WHITE && current.y() == 8 )
+                || (getKind() == Kind.PAWN && getType() ==Type.BLACK && current.y() == 1 ));
     }
 
     public Piece copy() {

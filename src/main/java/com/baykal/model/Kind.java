@@ -69,10 +69,13 @@ public enum Kind {
         public List<Position> apply(Position current) {
             List<Position> positions = new ArrayList<>();
 
-            current.advance(1).ifPresent(positions::add);
-            current.advance(-1).ifPresent(positions::add);
-            current.lateral(1).ifPresent(positions::add);
-            current.lateral(-1).ifPresent(positions::add);
+            for(int i : Position.PM) {
+                current.advance(i).ifPresent(positions::add);
+                current.lateral(i).ifPresent(positions::add);
+                for(int j : Position.PM) {
+                    current.diagonal(i,j).ifPresent(positions::add);
+                }
+            }
 
             return positions;
         }

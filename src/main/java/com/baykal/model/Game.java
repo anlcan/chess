@@ -31,7 +31,7 @@ public class Game {
 
     public Player start() {
 
-        while(board.moveTexts.size() < 180) {
+        while(board.moveTexts.size() < 300) {
             boolean isMate = step();
             nextTurn = opposite(nextTurn);
 

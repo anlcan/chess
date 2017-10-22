@@ -79,6 +79,14 @@ public class Board {
         }
         piece.setPosition(nextMove.getNext());
 
+        //check promote
+        if(piece.canPromote()){
+            Piece autoPromote = new Piece(Kind.QUEEN, piece.getType(), piece.getCurrent());
+            pieces.remove(piece);
+            pieces.add(autoPromote);
+            nextMove.setPromote(Kind.QUEEN);
+        }
+
         // if this player can capture KING on my next move, this is check
         this.check = canCaptureKing(piece.getType());
         nextMove.setCheck(check);
