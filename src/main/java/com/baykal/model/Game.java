@@ -1,7 +1,5 @@
 package com.baykal.model;
 
-import java.util.Collection;
-
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:45
  */
@@ -11,7 +9,6 @@ public class Game {
     private Player two;
 
     private Board board;
-    private int moveCount = 0;
 
     public Game(Player one, Player two) {
         if (one.getType() == Type.BLACK) {
@@ -26,14 +23,14 @@ public class Game {
     }
 
 
-    public Player start(){
+    public Player start() {
         Player nextTurn = one.getType() == Type.WHITE? one : two;
-        while(moveCount < 90) {
+        while(board.moveTexts.size() < 120) {
             Move nextMove = nextTurn.getMove(board);
+            if ( null == nextMove) {
+                return nextTurn==one?two : one;
+            }
             board.apply(nextMove);
-
-
-            moveCount++;
             nextTurn = nextTurn == one? two : one;
         }
 

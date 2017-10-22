@@ -21,7 +21,7 @@ public class Board {
     }
 
     private boolean check = false;
-    private final List<MoveText> moveTexts = new ArrayList<>();
+    public final List<MoveText> moveTexts = new ArrayList<>();
 
     //
     private final class MoveText {
@@ -53,7 +53,7 @@ public class Board {
     }
 
     public Board() {
-        this.pieces = new ArrayList<Piece>();
+        this.pieces = new ArrayList<>();
 
         //pawns
         for (String s : Y) {
@@ -90,7 +90,8 @@ public class Board {
 
 
     public Board apply(Move nextMove) {
-        Piece piece = findPiece(nextMove.getCurrent()).get();
+        Piece piece = nextMove.getOrigin();
+        assert piece != null;
         if (nextMove.isCapture()) {
             Piece captured = nextMove.getTarget();
             assert captured.getType() != piece.getType();
@@ -102,15 +103,20 @@ public class Board {
                 new MoveText(piece.getKind(), nextMove.getCurrent(), nextMove.getNext(),
                         nextMove.isCapture()));
 
+        // if my next move is mate, this is check
+        check = nextMoveMate(piece.getType());
 
-        check = possibleMoves(piece.getType()).stream()
-                .anyMatch(Move::isCheck);
 
         return this;
     }
 
+    public boolean nextMoveMate(Type type) {
+        return possibleMoves(type).stream()
+                .anyMatch(Move::isCheck);
+    }
+
     public List<Move> possibleMoves(Type type) {
-        return getPieces().parallelStream()
+        return pieces.parallelStream()
                 .filter(p -> p.getType().equals(type))
                 .map(p -> p.moves(this))
                 .flatMap(Collection::stream)
@@ -162,16 +168,9 @@ public class Board {
     }
 
 
-    public boolean isMate() {
-        return false;
-    }
-
-    public boolean isDraw() {
-        return false;
-    }
 
     public List<Piece> getPieces() {
-        return   new ArrayList<>(pieces);
+        return  new ArrayList<>(pieces);
     }
 
 

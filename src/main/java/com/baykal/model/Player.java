@@ -22,6 +22,10 @@ public class Player {
         return type;
     }
 
+    private boolean canUncheck(Board board, Move move) {
+        return !new Board(board.getPieces()).apply(move).nextMoveMate(type.opposite());
+    }
+
     public Move getMove(Board board) {
         // GAME LOGIC GOES HERE
 
@@ -30,9 +34,13 @@ public class Player {
         if (board.isCheck()) {
             //select a move that will unCheck!
             moves = moves.stream()
-                    .filter(move -> !new Board(board.getPieces()).apply(move).isCheck())
+                    .peek(move -> System.out.println(move))
+                    .filter(move -> canUncheck(board, move))
                     .collect(Collectors.toList());
 
+        }
+        if (moves.size()  == 0) {
+            return null;
         }
 
         return moves.get(ThreadLocalRandom.current().nextInt(moves.size()));

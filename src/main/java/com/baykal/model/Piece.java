@@ -75,7 +75,7 @@ public class Piece {
                 return Optional.empty();
             }
         }
-        return Optional.of(new Move(current, next, targetPiece));
+        return Optional.of(new Move(this, next, targetPiece));
     }
 
     @Override
