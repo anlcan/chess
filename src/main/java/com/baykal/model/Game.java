@@ -5,6 +5,7 @@ package com.baykal.model;
  */
 public class Game {
 
+    public Player nextTurn;
     private Player one;
     private Player two;
 
@@ -20,26 +21,37 @@ public class Game {
         this.one = one;
         this.two = two;
         this.board = new Board();
+        this.nextTurn = one.getType() == Type.WHITE? one : two;
     }
 
     private Player opposite(Player p1) {
         return p1 == one? two : one;
     }
 
-    public Player start() {
-        Player nextTurn = one.getType() == Type.WHITE? one : two;
-        while(board.moveTexts.size() < 120) {
-            Move nextMove = nextTurn.getMove(board);
-            if ( null == nextMove) {
-                // mate
-                return opposite(nextTurn);
-            }
 
-            board.apply(nextMove);
+    public Player start() {
+
+        while(board.moveTexts.size() < 180) {
+            boolean isMate = step();
             nextTurn = opposite(nextTurn);
+
+            if (isMate){
+                break;
+            }
         }
 
         return nextTurn;
+    }
+
+    public boolean step() {
+        Move nextMove = nextTurn.getMove(board);
+        if ( null == nextMove) {
+            // mate
+            return true;
+        }
+
+        board.apply(nextMove);
+        return false;
     }
 
     public Board getBoard() {

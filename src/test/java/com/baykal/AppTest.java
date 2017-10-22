@@ -1,12 +1,13 @@
 package com.baykal;
 
 
-import com.baykal.model.Board;
-import com.baykal.model.Kind;
-import com.baykal.model.Position;
+import com.baykal.model.*;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -15,8 +16,18 @@ import static org.junit.Assert.assertTrue;
  * Unit test for simple App.
  */
 public class AppTest {
+
+    public static final Player BLACK = new Player("b", Type.BLACK);
+    public static final Player WHITE = new Player("a", Type.WHITE);
+    private Game game;
+
+    @Before
+    public void setup(){
+        this.game = new Game(WHITE, BLACK);
+    }
+
     @Test
-    public void positionDiff(){
+    public void positionDiff() {
 
         Position p1 = new Position("a", 7);
         Position p2 = new Position("a", 5);
@@ -76,6 +87,38 @@ public class AppTest {
 
         Board board2 = new Board(board.getPieces());
         assertFalse(board.getPieces().get(0).equals(board2.getPieces().get(0)));
+
+
+        for (int i = 0; i < 6; i++) {
+            assertFalse(game.getBoard().isCheck());
+            game.step();
+
+        }
     }
 
+    @Test
+    public void boardTest() {
+
+        Board b2 =  new Board(game.getBoard().getPieces());
+        assertTrue(b2.equals(new Board(b2.getPieces())));
+
+        b2.canCaptureKing(Type.BLACK);
+        assertTrue(b2.equals(new Board(b2.getPieces())));
+
+        b2.apply(WHITE.getMove(b2));
+        b2.apply(BLACK.getMove(b2));
+
+        Board b3 = new Board(b2.getPieces());
+        assertTrue(b3.equals(b2));
+
+        List<Move> moves = b2.possibleMoves(Type.WHITE).stream()
+                .filter(b2::isCheckValidMove)
+                .collect(Collectors.toList());
+
+        assertTrue(b3.equals(b2));
+
+        Move candidate = moves.get(ThreadLocalRandom.current().nextInt(moves.size()));
+        b2.apply(candidate);
+        assertFalse(b3.equals(b2));
+    }
 }

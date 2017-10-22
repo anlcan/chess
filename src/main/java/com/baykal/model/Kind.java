@@ -2,7 +2,9 @@ package com.baykal.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:56
@@ -17,6 +19,10 @@ public enum Kind {
     PAWN(" ", new  Kind.EmptyPositions());  //todo black_pawn≤ white_pawn?
 
     public final Function<Position, List<Position>> positions;
+
+    public static final Optional<Kind> fromPgnSign(String sign){
+        return Stream.of(Kind.values()).filter(kind -> kind.pgnsign.equals(sign)).findFirst();
+    }
 
     private final String pgnsign;
 

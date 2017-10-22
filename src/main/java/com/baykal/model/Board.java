@@ -1,7 +1,6 @@
 package com.baykal.model;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -13,12 +12,11 @@ public class Board {
     public static final List<String> Y = Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h");
 
     private final List<Piece> pieces;
+    private boolean check = false;
 
     public boolean isCheck() {
         return check;
     }
-
-    private boolean check = false;
     public final List<Move> moveTexts = new ArrayList<>();
 
 
@@ -64,45 +62,86 @@ public class Board {
     }
 
 
-    public Board apply(Move nextMove) {
-        Piece piece = nextMove.getOrigin();
-        assert piece != null;
+    public void apply(Move nextMove) {
+        assert nextMove.getNext() != null;
+        Optional<Piece> pieceO = findPiece(nextMove.getCurrent());
+
+        assert pieceO.isPresent();
+        Piece piece = pieceO.get();
+
         if (nextMove.isCapture()) {
             Piece captured = nextMove.getTarget();
             assert captured.getType() != piece.getType();
-            pieces.remove(captured);
-        }
 
-        // if this player can capture KING on my next turn, this is check
-        check = nextMoveMate(piece.getType());
-        nextMove.setCheck(check);
+            Optional<Piece> targetO = findPiece(captured.getCurrent());
+            assert targetO.isPresent();
+            pieces.remove(targetO.get());
+        }
         piece.setPosition(nextMove.getNext());
+
+        // if this player can capture KING on my next move, this is check
+        this.check = canCaptureKing(piece.getType());
+        nextMove.setCheck(check);
         this.moveTexts.add(nextMove);
 
-        return this;
     }
 
-    public boolean nextMoveMate(Type type) {
+    public boolean canCaptureKing(Type type) {
         return possibleMoves(type).stream()
                 .anyMatch(move -> move.isCapture() && move.getTarget().getKind() == Kind.KING);
     }
 
     // does this move save me from check?
-    public boolean canUncheck(Move move) {
-        return !new Board(getPieces()).apply(move)
-                .nextMoveMate(move.getOrigin().getType().opposite());
+    public boolean isCheckValidMove(Move move) {
+        Board testBoard = this.clone();
+        testBoard.apply(move);
+
+        return !testBoard.canCaptureKing(move.getOrigin().getType().opposite());
     }
 
     public List<Move> possibleMoves(Type type) {
-        return pieces.parallelStream()
+        return pieces.stream()
                 .filter(p -> p.getType().equals(type))
                 .map(p -> p.moves(this))
                 .flatMap(Collection::stream)
                 .collect(toList());
     }
 
-    @Override
-    public String toString() {
+
+
+    public Optional<Piece> findPiece(Position position) {
+        return pieces.stream().filter(p -> p.getCurrent().equals(position)).findFirst();
+    }
+
+    public List<Piece> getPieces() {
+        return pieces.stream().map(Piece::copy).collect(toList());
+    }
+
+    public Board clone() {
+        return new Board(getPieces());
+    }
+
+    public List<Move> getMoves() {
+        return moveTexts;
+    }
+
+    public boolean equals(Board board){
+
+        if (getPieces().size() != board.getPieces().size())
+            return false;
+
+        for (Piece p : board.pieces){
+            if (findPiece(p.getCurrent()).isPresent()) {
+                Piece p2 = findPiece(p.getCurrent()).get();
+                if (p2.getType() == p.getType() && p2.getKind() == p.getKind())
+                    continue;
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public String toRichString() {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 8; i > 0; i--) {
@@ -125,6 +164,15 @@ public class Board {
         return sb.toString();
     }
 
+    @Override
+    public String toString() {
+        return "Board{" +
+                "pieces=" + pieces +
+                ", check=" + check +
+                ", moveTexts=" + moveTexts +
+                '}';
+    }
+
     // https://lichess.org/import
     public String toPgnString() {
         StringBuilder sb = new StringBuilder();
@@ -139,15 +187,5 @@ public class Board {
 
         return sb.toString();
     }
-
-
-    public Optional<Piece> findPiece(Position position) {
-        return pieces.stream().filter(p -> p.getCurrent().equals(position)).findFirst();
-    }
-
-    public List<Piece> getPieces() {
-        return pieces.stream().map(d -> d.clone()).collect(toList());
-    }
-
 
 }

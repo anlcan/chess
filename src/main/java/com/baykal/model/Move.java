@@ -17,6 +17,8 @@ public class Move {
         this.origin = origin;
         this.current = origin.getCurrent();
         this.target = target;
+
+        assert !target.isPresent() || target.get().getType() != origin.getType();
     }
 
     public Position getCurrent() {
@@ -54,9 +56,19 @@ public class Move {
         String check = isCheck()? "+" : "";
         return origin.getKind().getSign()
                 + sep
-                + getCurrent().x
+                + getCurrent().x + getCurrent().y
                 + next.toString()
                 + check
                 + " ";
+    }
+
+    public static Move read(String pgn) {
+
+        Optional<Kind> kind = Kind.fromPgnSign(String.valueOf(pgn.charAt(0)));
+        assert kind.isPresent();
+        Kind k = kind.get();
+
+        return new Move(null, null, null);
+
     }
 }

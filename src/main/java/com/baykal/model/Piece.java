@@ -1,5 +1,6 @@
 package com.baykal.model;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +42,8 @@ public class Piece {
     public List<Move> moves(Board board) {
         ArrayList<Move> moves = new ArrayList<>();
 
-        List<Position> positions = kind == Kind.PAWN ? pawnPositions() : kind.positions.apply(current);
+        List<Position> positions = kind == Kind.PAWN ? pawnPositions(board) : kind.positions.apply(current);
+
 
         for (Position next : positions) {
             evaluate(next, board).ifPresent(moves::add);
@@ -58,7 +60,7 @@ public class Piece {
             } else {
 
                 //todo
-                if (kind == Kind.PAWN) {
+                if (kind == Kind.PAWN && this.current._x == targetPiece.get().current._x) {
                     return Optional.empty();
                 }
 
@@ -86,21 +88,29 @@ public class Piece {
     }
 
 
-    public List<Position> pawnPositions() {
+    public List<Position> pawnPositions(Board board) {
         List<Position> positions = new ArrayList<>();
 
-//            //                   no going back
+        //
         int mul = type == Type.BLACK ? -1 : 1;
-        current.advance(1 * mul).ifPresent(positions::add);
+        current.advance(mul).ifPresent(positions::add);
         if (type == Type.BLACK && current.y == 7) {
             current.advance(-2).ifPresent(positions::add);
         } else if (type == Type.WHITE && current.y == 2) {
             current.advance(2).ifPresent(positions::add);
         }
+
+        for(int i : Position.PM) {
+            current.diagonal(i, mul)
+                    .ifPresent(position -> board.findPiece(position)
+                            .filter(piece -> piece.type != this.type)
+                            .ifPresent(piece -> positions.add(position)));
+        }
+
         return positions;
     }
 
-    public Piece clone(){
+    public Piece copy() {
         return new Piece(this.kind, this.type, new Position(current.x, current.y));
     }
 }
