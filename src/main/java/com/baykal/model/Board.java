@@ -1,11 +1,9 @@
 package com.baykal.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:52
@@ -21,32 +19,9 @@ public class Board {
     }
 
     private boolean check = false;
-    public final List<MoveText> moveTexts = new ArrayList<>();
+    public final List<Move> moveTexts = new ArrayList<>();
 
-    //
-    private final class MoveText {
-        private final Kind kind;
-        private final Position from;
-        private final Position to;
-        private final Boolean isKill;
 
-        public MoveText(Kind kind, Position from, Position to, boolean isKill) {
-            this.kind = kind;
-            this.from = from;
-            this.to = to;
-            this.isKill = isKill;
-        }
-
-        @Override
-        public String toString() {
-            String sep = isKill ? "x" : "";
-            return kind.getSign()
-                    + sep
-                    + from.x
-                    + to.toString()
-                    + " ";
-        }
-    }
 
     public Board(List<Piece> pieces) {
         this.pieces = pieces;
@@ -98,21 +73,24 @@ public class Board {
             pieces.remove(captured);
         }
 
-        piece.setPosition(nextMove.getNext());
-        this.moveTexts.add(
-                new MoveText(piece.getKind(), nextMove.getCurrent(), nextMove.getNext(),
-                        nextMove.isCapture()));
-
-        // if my next move is mate, this is check
+        // if this player can capture KING on my next turn, this is check
         check = nextMoveMate(piece.getType());
-
+        nextMove.setCheck(check);
+        piece.setPosition(nextMove.getNext());
+        this.moveTexts.add(nextMove);
 
         return this;
     }
 
     public boolean nextMoveMate(Type type) {
         return possibleMoves(type).stream()
-                .anyMatch(Move::isCheck);
+                .anyMatch(move -> move.isCapture() && move.getTarget().getKind() == Kind.KING);
+    }
+
+    // does this move save me from check?
+    public boolean canUncheck(Move move) {
+        return !new Board(getPieces()).apply(move)
+                .nextMoveMate(move.getOrigin().getType().opposite());
     }
 
     public List<Move> possibleMoves(Type type) {
@@ -120,7 +98,7 @@ public class Board {
                 .filter(p -> p.getType().equals(type))
                 .map(p -> p.moves(this))
                 .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @Override
@@ -167,10 +145,8 @@ public class Board {
         return pieces.stream().filter(p -> p.getCurrent().equals(position)).findFirst();
     }
 
-
-
     public List<Piece> getPieces() {
-        return  new ArrayList<>(pieces);
+        return pieces.stream().map(d -> d.clone()).collect(toList());
     }
 
 

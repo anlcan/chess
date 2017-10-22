@@ -1,11 +1,14 @@
 package com.baykal;
 
 
+import com.baykal.model.Board;
 import com.baykal.model.Kind;
 import com.baykal.model.Position;
 import org.junit.Test;
 
 import java.util.List;
+
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -65,6 +68,14 @@ public class AppTest {
         assertTrue(diff4.size() == 4);
 
         assertTrue(diff3.containsAll(diff4));
+    }
+
+    @Test
+    public void boadPieces() {
+        Board board = new Board();
+
+        Board board2 = new Board(board.getPieces());
+        assertFalse(board.getPieces().get(0).equals(board2.getPieces().get(0)));
     }
 
 }

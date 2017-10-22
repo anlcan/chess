@@ -1,7 +1,6 @@
 package com.baykal.model;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 /**
  * User: anlcan Date: 17/10/2017 Time: 21:56
@@ -10,7 +9,7 @@ public class Position {
     final String x;
     final char _x;
     final int y;
-    String tag;
+    private String tag;
 
     public static final List<Integer> PM = Arrays.asList(-1,1);
 

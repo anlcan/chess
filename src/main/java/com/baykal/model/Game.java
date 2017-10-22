@@ -22,16 +22,21 @@ public class Game {
         this.board = new Board();
     }
 
+    private Player opposite(Player p1) {
+        return p1 == one? two : one;
+    }
 
     public Player start() {
         Player nextTurn = one.getType() == Type.WHITE? one : two;
         while(board.moveTexts.size() < 120) {
             Move nextMove = nextTurn.getMove(board);
             if ( null == nextMove) {
-                return nextTurn==one?two : one;
+                // mate
+                return opposite(nextTurn);
             }
+
             board.apply(nextMove);
-            nextTurn = nextTurn == one? two : one;
+            nextTurn = opposite(nextTurn);
         }
 
         return nextTurn;

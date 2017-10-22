@@ -10,6 +10,7 @@ public class Move {
     private final Position current;
     private final Position next;
     private final Optional<Piece> target;
+    private boolean check;
 
     public Move(Piece origin , Position next, Optional<Piece> target) {
         this.next = next;
@@ -27,7 +28,11 @@ public class Move {
     }
 
     public boolean isCheck() {
-        return isCapture() && target.get().getKind() == Kind.KING;
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
     }
 
     public boolean isCapture() {
@@ -35,10 +40,23 @@ public class Move {
     }
 
     public Piece getTarget() {
+        assert target.isPresent();
         return target.get();
     }
 
     public Piece getOrigin() {
         return origin;
+    }
+
+    @Override
+    public String toString() {
+        String sep = isCapture()? "x" : "";
+        String check = isCheck()? "+" : "";
+        return origin.getKind().getSign()
+                + sep
+                + getCurrent().x
+                + next.toString()
+                + check
+                + " ";
     }
 }
